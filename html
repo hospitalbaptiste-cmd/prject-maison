@@ -1,0 +1,2297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projet Horizon Premium — Volume I</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papier:#F2F1EB;
+  --papier-creux:#E7E5DB;
+  --encre:#131F1A;
+  --foret:#1E4034;
+  --foret-clair:#3A6B58;
+  --eau:#256E7E;
+  --eau-clair:#4E97A6;
+  --bistre:#8E7134;
+  --bistre-clair:#B9A063;
+  --lichen:#7B8279;
+  --trait:#C9C6B9;
+  --trait-fin:#DEDBCE;
+
+  --d:"Fraunces",Georgia,serif;
+  --b:"Instrument Sans",-apple-system,Segoe UI,sans-serif;
+  --m:"IBM Plex Mono",ui-monospace,monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:#6C6F68;
+  font-family:var(--b);
+  color:var(--encre);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.55;
+}
+
+/* ---------- PAGE ---------- */
+.page{
+  position:relative;
+  width:210mm;height:297mm;
+  margin:10mm auto;
+  background:var(--papier);
+  padding:20mm 20mm 16mm 24mm;
+  overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,0,0,.35);
+  display:flex;flex-direction:column;
+}
+.page.sombre{background:var(--foret);color:var(--papier)}
+.page.eau{background:var(--eau);color:var(--papier)}
+
+/* ---------- ONGLET ALTITUDE (signature) ---------- */
+.onglet{
+  position:absolute;left:0;top:0;bottom:0;width:8mm;
+  background:var(--papier-creux);
+  border-right:.4pt solid var(--trait);
+  display:flex;align-items:center;justify-content:center;
+}
+.onglet span{
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  font-family:var(--m);font-size:6.5pt;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--lichen);
+}
+.page.sombre .onglet,.page.eau .onglet{background:rgba(255,255,255,.07);border-right-color:rgba(255,255,255,.18)}
+.page.sombre .onglet span,.page.eau .onglet span{color:rgba(255,255,255,.55)}
+
+/* ---------- ENTETE / PIED ---------- */
+.entete{
+  display:flex;justify-content:space-between;align-items:baseline;
+  border-bottom:.4pt solid var(--trait);
+  padding-bottom:2.5mm;margin-bottom:7mm;
+  font-family:var(--m);font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:var(--lichen);
+  flex:0 0 auto;
+}
+.entete b{font-weight:500;color:var(--foret)}
+.pied{
+  margin-top:auto;padding-top:3mm;
+  border-top:.4pt solid var(--trait);
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--m);font-size:6.8pt;color:var(--lichen);
+  flex:0 0 auto;
+}
+.pied .nav{display:flex;gap:2.5mm}
+.pied .nav a{
+  text-decoration:none;color:var(--foret);
+  border:.4pt solid var(--trait);border-radius:1mm;
+  padding:.8mm 2.2mm;font-size:6.5pt;letter-spacing:.06em;
+  background:var(--papier-creux);
+}
+.pied .nav a:hover{background:var(--foret);color:var(--papier);border-color:var(--foret)}
+
+/* ---------- CORPS ---------- */
+.corps{flex:1 1 auto;min-height:0}
+
+/* ---------- TYPO ---------- */
+h1{font-family:var(--d);font-weight:600;font-size:34pt;line-height:1.02;letter-spacing:-.02em;font-variation-settings:"SOFT" 0,"WONK" 1}
+h2{font-family:var(--d);font-weight:600;font-size:19pt;line-height:1.12;letter-spacing:-.01em;margin-bottom:3mm}
+h3{font-family:var(--b);font-weight:600;font-size:10.5pt;letter-spacing:.01em;margin-bottom:1.5mm;color:var(--foret)}
+h4{font-family:var(--m);font-weight:500;font-size:7.2pt;letter-spacing:.18em;text-transform:uppercase;color:var(--bistre);margin-bottom:2mm}
+p{font-size:9.3pt;line-height:1.62;margin-bottom:3mm;max-width:150mm}
+.chapo{font-family:var(--d);font-size:12.5pt;line-height:1.42;font-weight:300;color:var(--foret);margin-bottom:6mm}
+.page.sombre .chapo,.page.eau .chapo{color:rgba(255,255,255,.86)}
+small{font-size:7.6pt;color:var(--lichen);line-height:1.45}
+.mono{font-family:var(--m)}
+
+.eyebrow{
+  font-family:var(--m);font-size:7pt;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--bistre);margin-bottom:4mm;display:block;
+}
+.page.sombre .eyebrow,.page.eau .eyebrow{color:var(--bistre-clair)}
+
+/* ---------- LIENS ---------- */
+a{color:var(--eau)}
+a.lien{
+  color:var(--eau);text-decoration:none;
+  border-bottom:.4pt solid var(--eau-clair);
+}
+a.lien:hover{color:var(--foret);border-bottom-color:var(--foret)}
+
+/* ---------- COURBES DE NIVEAU (signature) ---------- */
+.courbes{position:absolute;inset:0;pointer-events:none;z-index:0}
+.courbes svg{width:100%;height:100%}
+.courbes path{fill:none;stroke:var(--bistre);stroke-width:.5;opacity:.13}
+.page.sombre .courbes path,.page.eau .courbes path{stroke:#fff;opacity:.12}
+.z1{position:relative;z-index:1}
+
+/* ---------- OUVERTURE DE CHAPITRE ---------- */
+.ouverture{justify-content:flex-end}
+.ouverture .num{
+  font-family:var(--m);font-size:9pt;letter-spacing:.3em;
+  color:var(--bistre-clair);margin-bottom:4mm;
+}
+.ouverture h1{font-size:44pt;color:var(--papier)}
+.ouverture .sous{font-family:var(--d);font-size:13pt;font-weight:300;color:rgba(255,255,255,.7);margin-top:5mm;max-width:120mm}
+.ouverture .liste{margin-top:9mm;border-top:.4pt solid rgba(255,255,255,.25);padding-top:4mm;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.5mm 8mm}
+.ouverture .liste div{font-family:var(--m);font-size:7.4pt;color:rgba(255,255,255,.68);letter-spacing:.04em}
+
+/* ---------- SOMMAIRE ---------- */
+.toc{border-top:.4pt solid var(--trait)}
+.toc a{
+  display:flex;align-items:baseline;gap:3mm;
+  text-decoration:none;color:var(--encre);
+  padding:1.9mm 0;border-bottom:.4pt solid var(--trait-fin);
+}
+.toc a:hover{color:var(--eau)}
+.toc .n{font-family:var(--m);font-size:7pt;color:var(--bistre);width:9mm;flex:0 0 9mm;letter-spacing:.06em}
+.toc .t{font-size:9.2pt;font-weight:500}
+.toc .pts{flex:1;border-bottom:.4pt dotted var(--trait);transform:translateY(-1mm)}
+.toc .pg{font-family:var(--m);font-size:7.4pt;color:var(--lichen)}
+.toc .sub .t{font-weight:400;font-size:8.5pt;padding-left:6mm;color:#3d4a44}
+.toc-groupe{
+  font-family:var(--m);font-size:7pt;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--bistre);margin:6mm 0 2mm;padding-bottom:1mm;border-bottom:.6pt solid var(--bistre-clair);
+}
+
+/* ---------- RESSOURCES ---------- */
+.res-bloc{margin-bottom:5mm;break-inside:avoid}
+.res-titre{
+  display:flex;align-items:center;gap:2mm;
+  font-family:var(--b);font-weight:600;font-size:9.5pt;color:var(--foret);
+  padding-bottom:1.2mm;margin-bottom:2mm;border-bottom:.6pt solid var(--foret-clair);
+}
+.res-sous{font-family:var(--m);font-size:6.8pt;letter-spacing:.16em;text-transform:uppercase;color:var(--bistre);margin:2.5mm 0 1.5mm}
+.res-grille{display:grid;grid-template-columns:1fr 1fr;gap:.6mm 6mm}
+.res-grille.trois{grid-template-columns:1fr 1fr 1fr}
+.res-item{
+  display:flex;justify-content:space-between;align-items:baseline;gap:2mm;
+  font-size:8pt;padding:.7mm 0;border-bottom:.4pt solid var(--trait-fin);
+  text-decoration:none;color:var(--encre);
+}
+.res-item:hover{color:var(--eau)}
+.res-item .nom{font-weight:500}
+.res-item .url{font-family:var(--m);font-size:6.2pt;color:var(--lichen);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:38mm}
+.res-item:hover .url{color:var(--eau-clair)}
+
+/* ---------- TABLEAUX ---------- */
+table{width:100%;border-collapse:collapse;font-size:8.2pt;margin-bottom:4mm}
+th{
+  font-family:var(--m);font-size:6.8pt;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--bistre);text-align:left;padding:1.8mm 2mm;
+  border-bottom:.8pt solid var(--foret-clair);font-weight:500;
+}
+td{padding:1.8mm 2mm;border-bottom:.4pt solid var(--trait-fin);vertical-align:top}
+tr:hover td{background:rgba(37,110,126,.05)}
+td.num{font-family:var(--m);font-size:7.6pt;color:var(--foret);white-space:nowrap}
+.vide{color:var(--trait);font-family:var(--m);font-size:7.4pt;letter-spacing:.1em}
+
+/* ---------- ENCADRES ---------- */
+.encadre{
+  background:var(--papier-creux);
+  border-left:1.2mm solid var(--eau);
+  padding:4mm 5mm;margin:4mm 0;break-inside:avoid;
+}
+.encadre.bistre{border-left-color:var(--bistre)}
+.encadre.foret{border-left-color:var(--foret-clair)}
+.encadre h4{margin-bottom:1.5mm}
+.encadre p{font-size:8.6pt;margin-bottom:1.5mm;max-width:none}
+.encadre p:last-child{margin-bottom:0}
+
+/* ---------- FICHES / CARTES ---------- */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:6mm}
+.trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5mm}
+.quatuor{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm}
+
+.slot{
+  border:.5pt dashed var(--trait);
+  background:repeating-linear-gradient(45deg,transparent,transparent 4px,rgba(201,198,185,.18) 4px,rgba(201,198,185,.18) 8px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--lichen);font-family:var(--m);font-size:6.8pt;letter-spacing:.14em;text-transform:uppercase;
+  text-align:center;padding:3mm;gap:1.5mm;
+}
+.slot .ic{font-size:13pt;opacity:.45;letter-spacing:0}
+
+.fiche{border:.5pt solid var(--trait);background:#fff;padding:0;break-inside:avoid}
+.fiche-tete{background:var(--foret);color:var(--papier);padding:2.2mm 3mm;display:flex;justify-content:space-between;align-items:center}
+.fiche-tete .t{font-family:var(--b);font-weight:600;font-size:8.6pt}
+.fiche-tete .r{font-family:var(--m);font-size:6.6pt;letter-spacing:.12em;opacity:.7}
+.fiche-corps{padding:3mm}
+.ligne{display:flex;justify-content:space-between;gap:3mm;font-size:7.8pt;padding:1.1mm 0;border-bottom:.4pt solid var(--trait-fin)}
+.ligne:last-child{border-bottom:0}
+.ligne .k{color:var(--lichen);font-family:var(--m);font-size:6.6pt;letter-spacing:.1em;text-transform:uppercase;padding-top:.4mm}
+.ligne .v{font-weight:500;text-align:right}
+
+.bouton{
+  display:inline-block;background:var(--eau);color:#fff;text-decoration:none;
+  font-family:var(--m);font-size:6.8pt;letter-spacing:.14em;text-transform:uppercase;
+  padding:1.6mm 3.5mm;border-radius:.8mm;margin-right:1.5mm;margin-top:1mm;
+}
+.bouton.creux{background:transparent;color:var(--eau);border:.5pt solid var(--eau)}
+.bouton:hover{background:var(--foret);color:#fff;border-color:var(--foret)}
+
+/* ---------- SCORE HORIZON ---------- */
+.jauge{display:flex;align-items:center;gap:3mm;padding:1.6mm 0;border-bottom:.4pt solid var(--trait-fin)}
+.jauge .lab{width:34mm;flex:0 0 34mm;font-size:8.4pt;font-weight:500}
+.jauge .barre{flex:1;height:2.6mm;background:var(--papier-creux);border:.4pt solid var(--trait);position:relative;overflow:hidden}
+.jauge .barre i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--foret-clair),var(--eau));display:block}
+.jauge .val{width:12mm;flex:0 0 12mm;text-align:right;font-family:var(--m);font-size:7.6pt;color:var(--foret)}
+.jauge .val.attente{color:var(--trait)}
+
+.score-total{
+  border:.8pt solid var(--foret);padding:5mm;text-align:center;background:var(--papier-creux);
+}
+.score-total .n{font-family:var(--d);font-size:46pt;font-weight:600;line-height:1;color:var(--foret)}
+.score-total .n.attente{color:var(--trait)}
+.score-total .l{font-family:var(--m);font-size:7pt;letter-spacing:.24em;text-transform:uppercase;color:var(--bistre);margin-top:2mm}
+
+.etoiles{font-size:9pt;letter-spacing:.06em;color:var(--bistre)}
+
+/* ---------- COUVERTURE ---------- */
+.couv{padding:0;background:var(--foret);color:var(--papier);justify-content:space-between}
+.couv-in{position:relative;z-index:2;padding:22mm 20mm;display:flex;flex-direction:column;height:100%}
+.couv .marque{font-family:var(--m);font-size:7.4pt;letter-spacing:.36em;text-transform:uppercase;color:var(--bistre-clair)}
+.couv h1{font-size:52pt;line-height:.96;margin-top:auto;color:#fff}
+.couv .st{font-family:var(--d);font-weight:300;font-size:15pt;color:rgba(255,255,255,.72);margin-top:6mm;max-width:120mm;line-height:1.3}
+.couv .meta{margin-top:10mm;padding-top:4mm;border-top:.5pt solid rgba(255,255,255,.3);
+  display:flex;gap:12mm;font-family:var(--m);font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.couv .meta b{display:block;color:#fff;font-weight:500;margin-top:1mm;font-size:8pt;letter-spacing:.06em}
+
+/* ---------- DIVERS ---------- */
+.filet{height:.6pt;background:var(--trait);margin:5mm 0}
+.tag{
+  display:inline-block;font-family:var(--m);font-size:6.2pt;letter-spacing:.14em;text-transform:uppercase;
+  padding:.6mm 1.8mm;border:.4pt solid var(--bistre);color:var(--bistre);border-radius:.6mm;margin-right:1mm;
+}
+.tag.plein{background:var(--foret);border-color:var(--foret);color:#fff}
+.tag.att{border-color:var(--trait);color:var(--lichen)}
+
+ul.puces{list-style:none;margin-bottom:3mm}
+ul.puces li{font-size:8.8pt;padding:.9mm 0 .9mm 5mm;position:relative;line-height:1.5}
+ul.puces li:before{content:"—";position:absolute;left:0;color:var(--bistre);font-family:var(--m);font-size:7pt;top:1.2mm}
+
+ol.etapes{list-style:none;counter-reset:e}
+ol.etapes li{counter-increment:e;font-size:8.8pt;padding:2mm 0 2mm 10mm;position:relative;border-bottom:.4pt solid var(--trait-fin)}
+ol.etapes li:before{
+  content:counter(e,decimal-leading-zero);position:absolute;left:0;top:2mm;
+  font-family:var(--m);font-size:7.4pt;color:var(--bistre);letter-spacing:.1em;
+}
+
+/* ---------- IMPRESSION ---------- */
+@page{size:A4;margin:0}
+@media print{
+  body{background:#fff}
+  .page{margin:0;box-shadow:none;break-after:page;page-break-after:always}
+  .page:last-child{break-after:auto;page-break-after:auto}
+  .aide{display:none!important}
+  a{text-decoration:none}
+}
+
+/* ---------- ECRANS ETROITS ---------- */
+@media screen and (max-width:820px){
+  .page{width:100%;height:auto;min-height:auto;margin:0 0 6px;padding:18px 16px 14px 30px;box-shadow:none}
+  .onglet{width:20px}
+  h1{font-size:30pt}.couv h1{font-size:34pt}
+  .res-grille,.res-grille.trois,.duo,.trio,.quatuor{grid-template-columns:1fr}
+  .res-item .url{max-width:34vw}
+  .page.couv{height:auto;min-height:70vh}
+  .couv-in{padding:30px 20px}
+}
+
+.aide{
+  position:fixed;right:12px;bottom:12px;z-index:99;
+  background:var(--encre);color:var(--papier);
+  font-family:var(--m);font-size:10px;letter-spacing:.08em;
+  padding:8px 12px;border-radius:4px;max-width:230px;line-height:1.5;
+  box-shadow:0 4px 16px rgba(0,0,0,.4);
+}
+.aide b{color:var(--bistre-clair)}
+</style>
+</head>
+<body>
+
+<div class="aide"><b>PHASE 1 — MAQUETTE</b><br>Ctrl/Cmd + P → « Enregistrer au format PDF » pour l'export interactif.</div>
+<!-- ============ 00 — COUVERTURE ============ -->
+<section class="page couv" id="p-couverture">
+  <div class="courbes">
+    <svg viewBox="0 0 210 297" preserveAspectRatio="none">
+      <path d="M-10,250 C40,215 70,240 110,205 S180,180 220,150"/>
+      <path d="M-10,262 C40,228 72,252 112,218 S182,193 220,163"/>
+      <path d="M-10,274 C40,241 74,264 114,231 S184,206 220,176"/>
+      <path d="M-10,286 C40,254 76,276 116,244 S186,219 220,189"/>
+      <path d="M-10,238 C42,203 68,228 108,192 S178,167 220,137"/>
+      <path d="M-10,226 C44,191 66,216 106,179 S176,154 220,124"/>
+      <path d="M-10,214 C46,179 64,204 104,166 S174,141 220,111"/>
+      <path d="M-10,202 C48,167 62,192 102,153 S172,128 220,98"/>
+      <path d="M-10,190 C50,155 60,180 100,140 S170,115 220,85"/>
+      <path d="M-10,178 C52,143 58,168 98,127 S168,102 220,72"/>
+      <path d="M-10,166 C54,131 56,156 96,114 S166,89 220,59"/>
+      <path d="M-10,154 C56,119 54,144 94,101 S164,76 220,46"/>
+    </svg>
+  </div>
+  <div class="couv-in">
+    <div class="marque">Projet Horizon · Premium</div>
+    <h1>Où<br>vivre<br>demain.</h1>
+    <div class="st">Guide d'installation en France rurale — cinquante territoires étudiés, comparés et notés selon une méthode unique.</div>
+    <div class="meta">
+      <div>Volume<b>I</b></div>
+      <div>Territoires<b>50</b></div>
+      <div>Édition<b>1.0</b></div>
+      <div>Mise à jour<b>Juillet 2026</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COLOPHON ============ -->
+<section class="page" id="p-colophon">
+  <div class="onglet"><span>Ouverture</span></div>
+  <div class="entete"><div>Projet Horizon Premium</div><div><b>Colophon</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">À propos de cet ouvrage</span>
+    <h2>Projet Horizon Premium</h2>
+    <p class="chapo">Un guide conçu pour une seule décision : savoir si l'on peut y construire sa vie.</p>
+
+    <div class="duo">
+      <div>
+        <h4>Ce que contient ce volume</h4>
+        <ul class="puces">
+          <li>Une bibliothèque de 100 ressources officielles, toutes cliquables.</li>
+          <li>Une méthode de sélection en huit axes.</li>
+          <li>Un système de notation propriétaire sur 100 points.</li>
+          <li>Cinquante fiches territoire au format identique.</li>
+        </ul>
+        <h4>Ce qu'il ne contient pas</h4>
+        <ul class="puces">
+          <li>Aucune page de remplissage.</li>
+          <li>Aucune donnée non vérifiable.</li>
+          <li>Aucun avis promotionnel.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="fiche">
+          <div class="fiche-tete"><span class="t">Fiche technique</span><span class="r">v1.0</span></div>
+          <div class="fiche-corps">
+            <div class="ligne"><span class="k">Titre</span><span class="v">Projet Horizon Premium</span></div>
+            <div class="ligne"><span class="k">Volume</span><span class="v">I — Massif central & lacs</span></div>
+            <div class="ligne"><span class="k">Édition</span><span class="v">1.0</span></div>
+            <div class="ligne"><span class="k">Territoires</span><span class="v">50</span></div>
+            <div class="ligne"><span class="k">Format</span><span class="v">PDF interactif A4</span></div>
+            <div class="ligne"><span class="k">Typographies</span><span class="v">Fraunces · Instrument Sans · IBM Plex Mono</span></div>
+            <div class="ligne"><span class="k">Cartographie</span><span class="v">IGN · OpenStreetMap</span></div>
+            <div class="ligne"><span class="k">Mise à jour</span><span class="v">Juillet 2026</span></div>
+          </div>
+        </div>
+        <div class="encadre bistre">
+          <h4>Règle de vérité</h4>
+          <p>Chaque donnée chiffrée de ce guide porte sa source et sa date de consultation. Lorsqu'une information n'a pas pu être vérifiée, elle est signalée par la mention <span class="tag att">Non vérifié</span> plutôt que d'être estimée.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="filet"></div>
+    <h4>Conventions de lecture</h4>
+    <table>
+      <tr><td class="num" style="width:26mm"><span class="tag plein">Vérifié</span></td><td>Donnée confirmée par une source officielle citée en bas de fiche.</td></tr>
+      <tr><td class="num"><span class="tag">Terrain</span></td><td>Observation à confirmer lors de la visite sur place.</td></tr>
+      <tr><td class="num"><span class="tag att">Non vérifié</span></td><td>Information absente ou non recoupée à la date d'édition.</td></tr>
+      <tr><td class="num" style="color:var(--eau)">Lien souligné</td><td>Ouvre le site officiel dans le navigateur.</td></tr>
+    </table>
+  </div>
+  <div class="pied">
+    <div>Projet Horizon Premium · v1.0 · Juillet 2026</div>
+    <div class="nav"><a href="#p-couverture">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-preface">→</a></div>
+    <div>2</div>
+  </div>
+</section>
+
+<!-- ============ PRÉFACE ============ -->
+<section class="page" id="p-preface">
+  <div class="onglet"><span>Ouverture</span></div>
+  <div class="entete"><div>Projet Horizon Premium</div><div><b>Préface</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">Préface</span>
+    <h2>Pourquoi ce guide existe</h2>
+
+    <div class="duo">
+      <div>
+        <p>Choisir où vivre est la décision la plus lourde qu'on prenne rarement avec méthode. On visite deux week-ends, on tombe amoureux d'un paysage en août, et on signe un bail pour un endroit qu'on n'a jamais vu en février.</p>
+        <p>Les informations existent pourtant : loyers réels, offres d'emploi, couverture fibre, délais d'accès aux soins, pluviométrie, densité, services publics. Elles sont simplement dispersées sur quarante sites différents, dans des formats incomparables.</p>
+        <p>Ce guide rassemble ces données au même endroit, dans la même structure, pour cinquante territoires. Il ne dit pas où aller. Il donne de quoi trancher.</p>
+
+        <h3 style="margin-top:6mm">À qui il s'adresse</h3>
+        <ul class="puces">
+          <li>À qui envisage un départ vers la France rurale sans y avoir d'attaches.</li>
+          <li>À qui doit concilier un emploi salarié et un cadre de vie naturel.</li>
+          <li>À qui dispose d'un budget contraint et ne peut pas se tromper de ville.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="encadre foret">
+          <h4>Comment l'utiliser</h4>
+          <p><b>1.</b> Lisez le chapitre Méthode. Il fixe vos propres critères avant de regarder la moindre commune.</p>
+          <p><b>2.</b> Parcourez les fiches. Elles suivent toutes le même ordre : vous comparez sans relire.</p>
+          <p><b>3.</b> Retenez cinq territoires. Utilisez le score Horizon comme filtre, jamais comme verdict.</p>
+          <p><b>4.</b> Emportez le guide sur place. Chaque fiche contient les adresses, téléphones et liens dont vous aurez besoin le jour de la visite.</p>
+        </div>
+
+        <h3 style="margin-top:6mm">Le principe de la page utile</h3>
+        <p>Aucune page de ce guide n'existe pour occuper de l'espace. Chacune doit apporter l'une de ces trois choses : une information vérifiable, une aide à la décision, ou un outil concret. Une page qui ne répond à aucun de ces trois critères est retirée.</p>
+
+        <div class="filet"></div>
+        <h4>Origine du projet</h4>
+        <p style="font-size:8.4pt">Les tomes I à IV du Projet Horizon ont établi une présélection de cinquante territoires notés de 83 à 96. Ce volume Premium reprend cette liste et transforme chaque entrée en dossier complet.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Projet Horizon Premium · v1.0 · Juillet 2026</div>
+    <div class="nav"><a href="#p-colophon">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-sommaire">→</a></div>
+    <div>3</div>
+  </div>
+</section>
+<!-- ============ SOMMAIRE — CHAPITRES ============ -->
+<section class="page" id="p-sommaire">
+  <div class="onglet"><span>Sommaire</span></div>
+  <div class="entete"><div>Projet Horizon Premium</div><div><b>Sommaire</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">Navigation — cliquez sur une ligne</span>
+    <h2>Sommaire</h2>
+
+    <div class="toc">
+      <a href="#p-couverture"><span class="n">00</span><span class="t">Couverture</span><span class="pts"></span><span class="pg">1</span></a>
+      <a href="#p-colophon"><span class="n">—</span><span class="t">Colophon &amp; conventions de lecture</span><span class="pts"></span><span class="pg">2</span></a>
+      <a href="#p-preface"><span class="n">—</span><span class="t">Préface</span><span class="pts"></span><span class="pg">3</span></a>
+
+      <div class="toc-groupe">Chapitre 1 — Les ressources officielles</div>
+      <a href="#p-ch1"><span class="n">1.0</span><span class="t">Ouverture du chapitre</span><span class="pts"></span><span class="pg">7</span></a>
+      <a class="sub" href="#p-res-immo"><span class="n">1.1</span><span class="t">Immobilier — portails &amp; réseaux d'agences</span><span class="pts"></span><span class="pg">8</span></a>
+      <a class="sub" href="#p-res-emploi"><span class="n">1.2</span><span class="t">Emploi &amp; entreprises de sécurité privée</span><span class="pts"></span><span class="pg">9</span></a>
+      <a class="sub" href="#p-res-carto"><span class="n">1.3</span><span class="t">Cartographie, nature, eau &amp; pêche</span><span class="pts"></span><span class="pg">10</span></a>
+      <a class="sub" href="#p-res-meteo"><span class="n">1.4</span><span class="t">Météo, ciel, santé, carburants &amp; risques</span><span class="pts"></span><span class="pg">11</span></a>
+      <a class="sub" href="#p-res-data"><span class="n">1.5</span><span class="t">Photographies libres &amp; données officielles</span><span class="pts"></span><span class="pg">12</span></a>
+      <a class="sub" href="#p-outils"><span class="n">1.6</span><span class="t">La boîte à outils — applications de terrain</span><span class="pts"></span><span class="pg">13</span></a>
+
+      <div class="toc-groupe">Chapitre 2 — Comment choisir son futur lieu de vie</div>
+      <a href="#p-ch2"><span class="n">2.0</span><span class="t">Ouverture du chapitre</span><span class="pts"></span><span class="pg">15</span></a>
+      <a class="sub" href="#p-methode-1"><span class="n">2.1</span><span class="t">Les huit axes de décision</span><span class="pts"></span><span class="pg">16</span></a>
+      <a class="sub" href="#p-methode-2"><span class="n">2.2</span><span class="t">Ordre d'examen &amp; critères éliminatoires</span><span class="pts"></span><span class="pg">17</span></a>
+
+      <div class="toc-groupe">Chapitre 3 — Le système de notation Horizon</div>
+      <a href="#p-ch3"><span class="n">3.0</span><span class="t">Ouverture du chapitre</span><span class="pts"></span><span class="pg">19</span></a>
+      <a class="sub" href="#p-horizon-1"><span class="n">3.1</span><span class="t">Les dix critères et leur barème</span><span class="pts"></span><span class="pg">20</span></a>
+      <a class="sub" href="#p-horizon-2"><span class="n">3.2</span><span class="t">Grille de notation vierge &amp; calcul du score</span><span class="pts"></span><span class="pg">21</span></a>
+
+      <div class="toc-groupe">Chapitre 4 — Modèle de fiche territoire</div>
+      <a href="#p-ch4"><span class="n">4.0</span><span class="t">Ouverture du chapitre</span><span class="pts"></span><span class="pg">23</span></a>
+      <a class="sub" href="#p-modele-presentation"><span class="n">4.1</span><span class="t">Présentation · Carte · Chiffres clés</span><span class="pts"></span><span class="pg">24</span></a>
+      <a class="sub" href="#p-modele-logement"><span class="n">4.2</span><span class="t">Logement &amp; marché immobilier</span><span class="pts"></span><span class="pg">25</span></a>
+      <a class="sub" href="#p-modele-travail"><span class="n">4.3</span><span class="t">Travail &amp; sécurité privée</span><span class="pts"></span><span class="pg">27</span></a>
+      <a class="sub" href="#p-modele-quotidien"><span class="n">4.4</span><span class="t">Vie quotidienne &amp; santé</span><span class="pts"></span><span class="pg">29</span></a>
+      <a class="sub" href="#p-modele-nature"><span class="n">4.5</span><span class="t">Nature, randonnées &amp; activités</span><span class="pts"></span><span class="pg">30</span></a>
+      <a class="sub" href="#p-modele-budget"><span class="n">4.6</span><span class="t">Budget, climat &amp; connectivité</span><span class="pts"></span><span class="pg">31</span></a>
+      <a class="sub" href="#p-modele-galerie"><span class="n">4.7</span><span class="t">Galerie photographique</span><span class="pts"></span><span class="pg">32</span></a>
+      <a class="sub" href="#p-modele-horizon"><span class="n">4.8</span><span class="t">Analyse Horizon &amp; conclusion</span><span class="pts"></span><span class="pg">33</span></a>
+
+      <div class="toc-groupe">Chapitre 5 — Bort-les-Orgues (Corrèze)</div>
+      <a href="#p-bort"><span class="n">5.1</span><span class="t">Ouverture du territoire</span><span class="pts"></span><span class="pg">35</span></a>
+      <a class="sub" href="#p-bort-marche"><span class="n">5.1.1</span><span class="t">Logement — état du marché</span><span class="pts"></span><span class="pg">36</span></a>
+      <a class="sub" href="#p-bort-biens-1"><span class="n">5.1.2</span><span class="t">Biens relevés — 4 pièces et plus</span><span class="pts"></span><span class="pg">37</span></a>
+      <a class="sub" href="#p-bort-biens-2"><span class="n">5.1.3</span><span class="t">Petites surfaces &amp; tableau de marché</span><span class="pts"></span><span class="pg">38</span></a>
+      <a class="sub" href="#p-bort-achat"><span class="n">5.1.4</span><span class="t">Prix de vente &amp; transactions</span><span class="pts"></span><span class="pg">39</span></a>
+      <a class="sub" href="#p-bort-agences"><span class="n">5.1.5</span><span class="t">Agences, canaux &amp; méthode locale</span><span class="pts"></span><span class="pg">40</span></a>
+      <a class="sub" href="#p-bort-travail"><span class="n">5.1.6</span><span class="t">Travail &amp; bassin d'emploi</span><span class="pts"></span><span class="pg">41</span></a>
+      <a class="sub" href="#p-bort-securite"><span class="n">5.1.7</span><span class="t">Sécurité privée</span><span class="pts"></span><span class="pg">42</span></a>
+
+      <div class="toc-groupe">Chapitre 5 — Les territoires</div>
+      <a href="#p-sommaire-communes"><span class="n">5.0</span><span class="t">Sommaire des 50 territoires</span><span class="pts"></span><span class="pg">5</span></a>
+      <a href="#p-index"><span class="n">5.1</span><span class="t">Index &amp; état d'avancement de production</span><span class="pts"></span><span class="pg">43</span></a>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Projet Horizon Premium · v1.0 · Juillet 2026</div>
+    <div class="nav"><a href="#p-preface">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-sommaire-communes">→</a></div>
+    <div>4</div>
+  </div>
+</section>
+
+<section class="page" id="p-sommaire-communes">
+  <div class="onglet"><span>Sommaire</span></div>
+  <div class="entete"><div>Projet Horizon Premium</div><div><b>Territoires 01–25</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">Chapitre 5 — classés par priorité, indice issu des tomes I à IV</span>
+    <h2>Les cinquante territoires</h2>
+    <div class="toc" style="border-top:0"><div class="toc-groupe">Priorité S — à visiter en premier</div>
+<a href="#p-bort"><span class="n">01</span><span class="t">Bort-les-Orgues</span><span class="pts"></span><span class="pg mono">indice 96</span><span class="tag plein" style="margin-left:3mm">Logement ✓</span></a>
+<a href="#p-index"><span class="n">02</span><span class="t">Lac de Vouglans</span><span class="pts"></span><span class="pg mono">indice 95</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">03</span><span class="t">Pierre-Percée</span><span class="pts"></span><span class="pg mono">indice 94</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<div class="toc-groupe">Priorité A — forte compatibilité</div>
+<a href="#p-index"><span class="n">04</span><span class="t">Lac de Sarrans</span><span class="pts"></span><span class="pg mono">indice 95</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">05</span><span class="t">Lac de Vassivière</span><span class="pts"></span><span class="pg mono">indice 94</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">06</span><span class="t">Plateau de Millevaches</span><span class="pts"></span><span class="pg mono">indice 91</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">07</span><span class="t">Aubrac</span><span class="pts"></span><span class="pg mono">indice 90</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<div class="toc-groupe">Priorité B — à comparer</div>
+<a href="#p-index"><span class="n">08</span><span class="t">Quinson — Verdon</span><span class="pts"></span><span class="pg mono">indice 93</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">09</span><span class="t">Signes</span><span class="pts"></span><span class="pg mono">indice 92</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">10</span><span class="t">Livradois-Forez</span><span class="pts"></span><span class="pg mono">indice 89</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<div class="toc-groupe">Sélection Tome I — 15 territoires complémentaires</div>
+<a href="#p-index"><span class="n">11</span><span class="t">Morvan</span><span class="pts"></span><span class="pg mono">indice 93</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">12</span><span class="t">Esparron</span><span class="pts"></span><span class="pg mono">indice 92</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">13</span><span class="t">Nans-les-Pins</span><span class="pts"></span><span class="pg mono">indice 91</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">14</span><span class="t">Ginasservis</span><span class="pts"></span><span class="pg mono">indice 91</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">15</span><span class="t">Vallée de la Dordogne</span><span class="pts"></span><span class="pg mono">indice 90</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">16</span><span class="t">Haute-Maurienne</span><span class="pts"></span><span class="pg mono">indice 90</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">17</span><span class="t">Bugey</span><span class="pts"></span><span class="pg mono">indice 89</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">18</span><span class="t">Ardèche verte</span><span class="pts"></span><span class="pg mono">indice 89</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">19</span><span class="t">Cévennes</span><span class="pts"></span><span class="pg mono">indice 88</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">20</span><span class="t">Plateau du Retord</span><span class="pts"></span><span class="pg mono">indice 88</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">21</span><span class="t">Pays des Lacs — Jura</span><span class="pts"></span><span class="pg mono">indice 88</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">22</span><span class="t">Lévézou</span><span class="pts"></span><span class="pg mono">indice 87</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">23</span><span class="t">Brenne</span><span class="pts"></span><span class="pg mono">indice 87</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">24</span><span class="t">Monts d'Arrée</span><span class="pts"></span><span class="pg mono">indice 86</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">25</span><span class="t">Haute-Loire rurale</span><span class="pts"></span><span class="pg mono">indice 86</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+</div>
+  </div>
+  <div class="pied">
+    <div>Projet Horizon Premium · v1.0 · Juillet 2026</div>
+    <div class="nav"><a href="#p-sommaire">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-sommaire-communes-2">→</a></div>
+    <div>5</div>
+  </div>
+</section>
+<section class="page" id="p-sommaire-communes-2">
+  <div class="onglet"><span>Sommaire</span></div>
+  <div class="entete"><div>Projet Horizon Premium</div><div><b>Territoires 26–50</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">Chapitre 5 — suite</span>
+    <h2>Les cinquante territoires</h2>
+    <div class="toc" style="border-top:0"><div class="toc-groupe">Sélection Tome II — 25 territoires complémentaires</div>
+<a href="#p-index"><span class="n">26</span><span class="t">Gorges de la Sioule</span><span class="pts"></span><span class="pg mono">indice 90</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">27</span><span class="t">Lac de Pannecière</span><span class="pts"></span><span class="pg mono">indice 89</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">28</span><span class="t">Pays de Bitche</span><span class="pts"></span><span class="pg mono">indice 89</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">29</span><span class="t">Vallée de la Clarée</span><span class="pts"></span><span class="pg mono">indice 89</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">30</span><span class="t">Plateau de Langres</span><span class="pts"></span><span class="pg mono">indice 88</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">31</span><span class="t">Parc des Baronnies</span><span class="pts"></span><span class="pg mono">indice 88</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">32</span><span class="t">Lac de Chalain</span><span class="pts"></span><span class="pg mono">indice 88</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">33</span><span class="t">Plateau d'Albion</span><span class="pts"></span><span class="pg mono">indice 88</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">34</span><span class="t">Montagne Noire</span><span class="pts"></span><span class="pg mono">indice 87</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">35</span><span class="t">Pays des Écrins</span><span class="pts"></span><span class="pg mono">indice 87</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">36</span><span class="t">Val d'Azun</span><span class="pts"></span><span class="pg mono">indice 87</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">37</span><span class="t">Bocage Bourbonnais</span><span class="pts"></span><span class="pg mono">indice 87</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">38</span><span class="t">Vallée de l'Aude</span><span class="pts"></span><span class="pg mono">indice 86</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">39</span><span class="t">Forêt d'Orient</span><span class="pts"></span><span class="pg mono">indice 86</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">40</span><span class="t">Monts du Cantal</span><span class="pts"></span><span class="pg mono">indice 86</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">41</span><span class="t">Haute-Saône rurale</span><span class="pts"></span><span class="pg mono">indice 86</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">42</span><span class="t">Pays de Sault</span><span class="pts"></span><span class="pg mono">indice 85</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">43</span><span class="t">Combrailles</span><span class="pts"></span><span class="pg mono">indice 85</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">44</span><span class="t">Val de Loire rural</span><span class="pts"></span><span class="pg mono">indice 85</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">45</span><span class="t">Pays de Born</span><span class="pts"></span><span class="pg mono">indice 84</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">46</span><span class="t">Albret</span><span class="pts"></span><span class="pg mono">indice 84</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">47</span><span class="t">Thiérache</span><span class="pts"></span><span class="pg mono">indice 84</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">48</span><span class="t">Argonne</span><span class="pts"></span><span class="pg mono">indice 83</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">49</span><span class="t">Plateau des Mille Étangs</span><span class="pts"></span><span class="pg mono">indice 83</span><span class="tag att" style="margin-left:3mm">À produire</span></a>
+<a href="#p-index"><span class="n">50</span><span class="t">Pays d'Othe</span><span class="pts"></span><span class="pg mono">indice 83</span><span class="tag att" style="margin-left:3mm">À produire</span></a></div>
+  </div>
+  <div class="pied">
+    <div>Projet Horizon Premium · v1.0 · Juillet 2026</div>
+    <div class="nav"><a href="#p-sommaire-communes">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-ch1">→</a></div>
+    <div>6</div>
+  </div>
+</section><!-- ============ OUVERTURE CHAPITRE 1 ============ -->
+<section class="page sombre ouverture" id="p-ch1">
+  <div class="onglet"><span>Chapitre 1</span></div>
+  <div class="courbes"><svg viewBox="0 0 210 297" preserveAspectRatio="none">
+    <path d="M-10,60 C50,30 90,80 150,45 S200,20 220,35"/><path d="M-10,74 C50,44 90,94 150,59 S200,34 220,49"/>
+    <path d="M-10,88 C50,58 90,108 150,73 S200,48 220,63"/><path d="M-10,102 C50,72 90,122 150,87 S200,62 220,77"/>
+    <path d="M-10,116 C50,86 90,136 150,101 S200,76 220,91"/><path d="M-10,130 C50,100 90,150 150,115 S200,90 220,105"/>
+    <path d="M-10,46 C50,16 90,66 150,31 S200,6 220,21"/></svg></div>
+  <div class="corps z1" style="display:flex;flex-direction:column;justify-content:flex-end">
+    <div class="num">CHAPITRE UN</div>
+    <h1>Les ressources<br>officielles</h1>
+    <div class="sous">Cent plateformes de référence, classées par usage. Chaque nom ouvre le site officiel d'un simple clic, sur ordinateur comme sur téléphone.</div>
+    <div class="liste">
+      <div>1.1 — Immobilier · 27 plateformes</div><div>1.4 — Météo, ciel, santé, risques · 11</div>
+      <div>1.2 — Emploi &amp; sécurité privée · 22</div><div>1.5 — Photos &amp; données publiques · 9</div>
+      <div>1.3 — Cartographie, nature, eau · 16</div><div>1.6 — Boîte à outils de terrain</div>
+    </div>
+  </div>
+  <div class="pied" style="border-top-color:rgba(255,255,255,.25);color:rgba(255,255,255,.55)">
+    <div>Projet Horizon Premium</div>
+    <div class="nav"><a href="#p-sommaire-communes" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)">←</a><a href="#p-sommaire" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)">🏠 Sommaire</a><a href="#p-res-immo" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)">→</a></div>
+    <div>7</div>
+  </div>
+</section>
+
+
+<section class="page" id="p-res-immo">
+  <div class="onglet"><span>Ressources</span></div>
+  <div class="entete"><div>Chapitre 1 — Ressources officielles</div><div><b>1.1 Immobilier</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">1.1 — Immobilier</span>
+    <h2>Portails &amp; réseaux d'agences</h2>
+    <p class="chapo" style="font-size:10.5pt;margin-bottom:5mm">Vingt-sept plateformes couvrant la totalité du marché locatif et de la vente en zone rurale. Les portails généralistes donnent le volume ; les réseaux d'agences donnent l'accès aux biens jamais publiés en ligne.</p>
+    <div class="res-bloc"><div class="res-titre"><span>🏡</span><span>Immobilier</span></div>
+<div class="res-sous">Portails immobiliers</div>
+<div class="res-grille">
+<a class="res-item" href="https://www.seloger.com" target="_blank" rel="noopener"><span class="nom">SeLoger</span><span class="url">www.seloger.com</span></a>
+<a class="res-item" href="https://www.bienici.com" target="_blank" rel="noopener"><span class="nom">Bien'ici</span><span class="url">www.bienici.com</span></a>
+<a class="res-item" href="https://www.leboncoin.fr/immobilier" target="_blank" rel="noopener"><span class="nom">Le Bon Coin Immobilier</span><span class="url">www.leboncoin.fr/immobilier</span></a>
+<a class="res-item" href="https://www.pap.fr" target="_blank" rel="noopener"><span class="nom">PAP</span><span class="url">www.pap.fr</span></a>
+<a class="res-item" href="https://www.logic-immo.com" target="_blank" rel="noopener"><span class="nom">Logic-Immo</span><span class="url">www.logic-immo.com</span></a>
+<a class="res-item" href="https://www.avendrealouer.fr" target="_blank" rel="noopener"><span class="nom">A Vendre A Louer</span><span class="url">www.avendrealouer.fr</span></a>
+<a class="res-item" href="https://www.paruvendu.fr/immobilier" target="_blank" rel="noopener"><span class="nom">ParuVendu Immobilier</span><span class="url">www.paruvendu.fr/immobilier</span></a>
+<a class="res-item" href="https://www.entreparticuliers.com" target="_blank" rel="noopener"><span class="nom">EntreParticuliers</span><span class="url">www.entreparticuliers.com</span></a>
+<a class="res-item" href="https://www.green-acres.fr" target="_blank" rel="noopener"><span class="nom">Green-Acres</span><span class="url">www.green-acres.fr</span></a>
+<a class="res-item" href="https://www.bellesdemeures.com" target="_blank" rel="noopener"><span class="nom">Belles Demeures</span><span class="url">www.bellesdemeures.com</span></a>
+<a class="res-item" href="https://www.maisonsetappartements.fr" target="_blank" rel="noopener"><span class="nom">Maisons & Appartements</span><span class="url">www.maisonsetappartements.fr</span></a>
+</div>
+<div class="res-sous">Réseaux d'agences</div>
+<div class="res-grille">
+<a class="res-item" href="https://www.orpi.com" target="_blank" rel="noopener"><span class="nom">Orpi</span><span class="url">www.orpi.com</span></a>
+<a class="res-item" href="https://www.century21.fr" target="_blank" rel="noopener"><span class="nom">Century 21</span><span class="url">www.century21.fr</span></a>
+<a class="res-item" href="https://www.laforet.com" target="_blank" rel="noopener"><span class="nom">Laforêt</span><span class="url">www.laforet.com</span></a>
+<a class="res-item" href="https://www.foncia.com" target="_blank" rel="noopener"><span class="nom">Foncia</span><span class="url">www.foncia.com</span></a>
+<a class="res-item" href="https://www.guy-hoquet.com" target="_blank" rel="noopener"><span class="nom">Guy Hoquet</span><span class="url">www.guy-hoquet.com</span></a>
+<a class="res-item" href="https://www.nestenn.com" target="_blank" rel="noopener"><span class="nom">Nestenn</span><span class="url">www.nestenn.com</span></a>
+<a class="res-item" href="https://www.squarehabitat.fr" target="_blank" rel="noopener"><span class="nom">Square Habitat</span><span class="url">www.squarehabitat.fr</span></a>
+<a class="res-item" href="https://www.human-immobilier.fr" target="_blank" rel="noopener"><span class="nom">Human Immobilier</span><span class="url">www.human-immobilier.fr</span></a>
+<a class="res-item" href="https://www.arthurimmo.com" target="_blank" rel="noopener"><span class="nom">Arthurimmo.com</span><span class="url">www.arthurimmo.com</span></a>
+<a class="res-item" href="https://www.erafrance.com" target="_blank" rel="noopener"><span class="nom">ERA Immobilier</span><span class="url">www.erafrance.com</span></a>
+<a class="res-item" href="https://www.stephaneplazaimmobilier.com" target="_blank" rel="noopener"><span class="nom">Stéphane Plaza Immobilier</span><span class="url">www.stephaneplazaimmobilier.com</span></a>
+<a class="res-item" href="https://www.iadfrance.fr" target="_blank" rel="noopener"><span class="nom">iad France</span><span class="url">www.iadfrance.fr</span></a>
+<a class="res-item" href="https://www.safti.fr" target="_blank" rel="noopener"><span class="nom">SAFTI</span><span class="url">www.safti.fr</span></a>
+<a class="res-item" href="https://www.optimhome.com" target="_blank" rel="noopener"><span class="nom">Optimhome</span><span class="url">www.optimhome.com</span></a>
+<a class="res-item" href="https://www.capifrance.fr" target="_blank" rel="noopener"><span class="nom">Capifrance</span><span class="url">www.capifrance.fr</span></a>
+<a class="res-item" href="https://www.proprietes-privees.com" target="_blank" rel="noopener"><span class="nom">Propriétés Privées</span><span class="url">www.proprietes-privees.com</span></a>
+</div>
+</div><div class="encadre bistre" style="margin-top:2mm"><h4>Méthode de veille</h4><p>En zone rurale, Le Bon Coin et PAP concentrent les annonces de particuliers ; SeLoger et Bien'ici concentrent les mandats d'agence. Les deux circuits se recoupent peu : il faut surveiller les deux. Les réseaux de mandataires (iad, SAFTI, Optimhome, Capifrance, Propriétés Privées) publient souvent avant les portails.</p></div>
+  </div>
+  <div class="pied">
+    <div>Ressources officielles · v1.0</div>
+    <div class="nav"><a href="#p-ch1">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-res-emploi">→</a></div>
+    <div>8</div>
+  </div>
+</section>
+
+<section class="page" id="p-res-emploi">
+  <div class="onglet"><span>Ressources</span></div>
+  <div class="entete"><div>Chapitre 1 — Ressources officielles</div><div><b>1.2 Emploi</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">1.2 — Emploi</span>
+    <h2>Plateformes &amp; sécurité privée</h2>
+    <p class="chapo" style="font-size:10.5pt;margin-bottom:5mm">Huit plateformes d'offres généralistes et quatorze employeurs nationaux de la sécurité privée, accessibles directement par leur portail de recrutement.</p>
+    <div class="res-bloc"><div class="res-titre"><span>💼</span><span>Recherche d'emploi</span></div>
+<div class="res-sous">Plateformes d'offres</div>
+<div class="res-grille">
+<a class="res-item" href="https://www.francetravail.fr" target="_blank" rel="noopener"><span class="nom">France Travail</span><span class="url">www.francetravail.fr</span></a>
+<a class="res-item" href="https://www.indeed.fr" target="_blank" rel="noopener"><span class="nom">Indeed</span><span class="url">www.indeed.fr</span></a>
+<a class="res-item" href="https://www.hellowork.com" target="_blank" rel="noopener"><span class="nom">HelloWork</span><span class="url">www.hellowork.com</span></a>
+<a class="res-item" href="https://www.meteojob.com" target="_blank" rel="noopener"><span class="nom">Meteojob</span><span class="url">www.meteojob.com</span></a>
+<a class="res-item" href="https://www.jobijoba.com" target="_blank" rel="noopener"><span class="nom">Jobijoba</span><span class="url">www.jobijoba.com</span></a>
+<a class="res-item" href="https://www.linkedin.com/jobs" target="_blank" rel="noopener"><span class="nom">LinkedIn Jobs</span><span class="url">www.linkedin.com/jobs</span></a>
+<a class="res-item" href="https://fr.jooble.org" target="_blank" rel="noopener"><span class="nom">Jooble</span><span class="url">fr.jooble.org</span></a>
+<a class="res-item" href="https://www.monster.fr" target="_blank" rel="noopener"><span class="nom">Monster</span><span class="url">www.monster.fr</span></a>
+</div>
+</div><div class="res-bloc"><div class="res-titre"><span>🛡️</span><span>Entreprises de sécurité privée</span></div>
+<div class="res-sous">Groupes nationaux — portails de recrutement</div>
+<div class="res-grille">
+<a class="res-item" href="https://www.securitas.fr" target="_blank" rel="noopener"><span class="nom">Securitas</span><span class="url">www.securitas.fr</span></a>
+<a class="res-item" href="https://www.fiducial-securite.fr" target="_blank" rel="noopener"><span class="nom">Fiducial Sécurité</span><span class="url">www.fiducial-securite.fr</span></a>
+<a class="res-item" href="https://www.groupe-sgp.fr" target="_blank" rel="noopener"><span class="nom">SGP</span><span class="url">www.groupe-sgp.fr</span></a>
+<a class="res-item" href="https://www.seris.fr" target="_blank" rel="noopener"><span class="nom">SERIS Security</span><span class="url">www.seris.fr</span></a>
+<a class="res-item" href="https://www.onet.fr" target="_blank" rel="noopener"><span class="nom">Onet Sécurité</span><span class="url">www.onet.fr</span></a>
+<a class="res-item" href="https://www.goron.fr" target="_blank" rel="noopener"><span class="nom">Goron</span><span class="url">www.goron.fr</span></a>
+<a class="res-item" href="https://www.torann-france.fr" target="_blank" rel="noopener"><span class="nom">Torann-France</span><span class="url">www.torann-france.fr</span></a>
+<a class="res-item" href="https://www.protectim.fr" target="_blank" rel="noopener"><span class="nom">Protectim</span><span class="url">www.protectim.fr</span></a>
+<a class="res-item" href="https://www.cesg.eu" target="_blank" rel="noopener"><span class="nom">CESG</span><span class="url">www.cesg.eu</span></a>
+<a class="res-item" href="https://www.challancin.fr" target="_blank" rel="noopener"><span class="nom">Challancin</span><span class="url">www.challancin.fr</span></a>
+<a class="res-item" href="https://www.verisure.fr" target="_blank" rel="noopener"><span class="nom">Verisure</span><span class="url">www.verisure.fr</span></a>
+<a class="res-item" href="https://www.brinks.fr" target="_blank" rel="noopener"><span class="nom">Brink's</span><span class="url">www.brinks.fr</span></a>
+<a class="res-item" href="https://www.loomis.fr" target="_blank" rel="noopener"><span class="nom">Loomis</span><span class="url">www.loomis.fr</span></a>
+<a class="res-item" href="https://www.prosegur.fr" target="_blank" rel="noopener"><span class="nom">Prosegur</span><span class="url">www.prosegur.fr</span></a>
+</div>
+</div><div class="encadre foret" style="margin-top:2mm"><h4>Lecture pour un poste fixe</h4><p>Les postes stables en sécurité (PC sécurité, site industriel, hôpital, télésurveillance) sont rarement publiés sur les agrégateurs. Ils passent par les pages carrière des groupes ci-dessus et par les agences France Travail locales. Chaque fiche territoire de ce guide liste les sites employeurs présents dans un rayon de 45 minutes.</p></div>
+  </div>
+  <div class="pied">
+    <div>Ressources officielles · v1.0</div>
+    <div class="nav"><a href="#p-res-immo">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-res-carto">→</a></div>
+    <div>9</div>
+  </div>
+</section>
+
+<section class="page" id="p-res-carto">
+  <div class="onglet"><span>Ressources</span></div>
+  <div class="entete"><div>Chapitre 1 — Ressources officielles</div><div><b>1.3 Territoire</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">1.3 — Territoire</span>
+    <h2>Cartographie, nature &amp; eau</h2>
+    <p class="chapo" style="font-size:10.5pt;margin-bottom:5mm">Les outils de lecture du terrain. Ils permettent d'évaluer un lieu avant de s'y rendre : relief, accès, boisement, hydrographie, protection réglementaire.</p>
+    <div class="res-bloc"><div class="res-titre"><span>🗺️</span><span>Cartographie</span></div>
+<div class="res-grille">
+<a class="res-item" href="https://maps.google.com" target="_blank" rel="noopener"><span class="nom">Google Maps</span><span class="url">maps.google.com</span></a>
+<a class="res-item" href="https://earth.google.com" target="_blank" rel="noopener"><span class="nom">Google Earth</span><span class="url">earth.google.com</span></a>
+<a class="res-item" href="https://www.geoportail.gouv.fr" target="_blank" rel="noopener"><span class="nom">Géoportail</span><span class="url">www.geoportail.gouv.fr</span></a>
+<a class="res-item" href="https://www.ign.fr" target="_blank" rel="noopener"><span class="nom">IGN</span><span class="url">www.ign.fr</span></a>
+<a class="res-item" href="https://www.openstreetmap.org" target="_blank" rel="noopener"><span class="nom">OpenStreetMap</span><span class="url">www.openstreetmap.org</span></a>
+<a class="res-item" href="https://remonterletemps.ign.fr" target="_blank" rel="noopener"><span class="nom">IGN Remonter le Temps</span><span class="url">remonterletemps.ign.fr</span></a>
+</div>
+</div><div class="res-bloc"><div class="res-titre"><span>🥾</span><span>Nature &amp; randonnée</span></div>
+<div class="res-grille">
+<a class="res-item" href="https://www.visorando.com" target="_blank" rel="noopener"><span class="nom">Visorando</span><span class="url">www.visorando.com</span></a>
+<a class="res-item" href="https://www.komoot.com" target="_blank" rel="noopener"><span class="nom">Komoot</span><span class="url">www.komoot.com</span></a>
+<a class="res-item" href="https://www.alltrails.com" target="_blank" rel="noopener"><span class="nom">AllTrails</span><span class="url">www.alltrails.com</span></a>
+<a class="res-item" href="https://www.outdooractive.com" target="_blank" rel="noopener"><span class="nom">Outdooractive</span><span class="url">www.outdooractive.com</span></a>
+<a class="res-item" href="https://www.natura2000.fr" target="_blank" rel="noopener"><span class="nom">Natura 2000</span><span class="url">www.natura2000.fr</span></a>
+<a class="res-item" href="https://reseau-cen.org" target="_blank" rel="noopener"><span class="nom">Conservatoires d'Espaces Naturels</span><span class="url">reseau-cen.org</span></a>
+</div>
+</div><div class="res-bloc"><div class="res-titre"><span>🌊</span><span>Eau &amp; baignade</span></div>
+<div class="res-grille">
+<a class="res-item" href="https://www.eaufrance.fr" target="_blank" rel="noopener"><span class="nom">EauFrance</span><span class="url">www.eaufrance.fr</span></a>
+<a class="res-item" href="https://www.lesagencesdeleau.fr" target="_blank" rel="noopener"><span class="nom">Agences de l'Eau</span><span class="url">www.lesagencesdeleau.fr</span></a>
+</div>
+</div><div class="res-bloc"><div class="res-titre"><span>🎣</span><span>Pêche</span></div>
+<div class="res-grille">
+<a class="res-item" href="https://www.federationpeche.fr" target="_blank" rel="noopener"><span class="nom">Fédération Nationale de la Pêche</span><span class="url">www.federationpeche.fr</span></a>
+<a class="res-item" href="https://www.cartedepeche.fr" target="_blank" rel="noopener"><span class="nom">Carte de Pêche</span><span class="url">www.cartedepeche.fr</span></a>
+</div>
+</div><div class="encadre"><h4>Le réflexe Remonter le Temps</h4><p>Le comparateur historique de l'IGN superpose les photographies aériennes de 1950 à aujourd'hui. Il révèle en quelques secondes ce qu'aucune annonce ne dit : extension d'une carrière, disparition d'un commerce, fermeture d'une voie ferrée, avancée d'une zone industrielle.</p></div>
+  </div>
+  <div class="pied">
+    <div>Ressources officielles · v1.0</div>
+    <div class="nav"><a href="#p-res-emploi">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-res-meteo">→</a></div>
+    <div>10</div>
+  </div>
+</section>
+
+<section class="page" id="p-res-meteo">
+  <div class="onglet"><span>Ressources</span></div>
+  <div class="entete"><div>Chapitre 1 — Ressources officielles</div><div><b>1.4 Conditions</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">1.4 — Conditions de vie</span>
+    <h2>Météo, ciel, santé &amp; risques</h2>
+    <p class="chapo" style="font-size:10.5pt;margin-bottom:5mm">Les données qui décident de la qualité d'une année entière : climat réel, pollution lumineuse, accès aux soins, exposition aux risques naturels.</p>
+    <div class="res-bloc"><div class="res-titre"><span>🌤️</span><span>Météo</span></div>
+<div class="res-grille">
+<a class="res-item" href="https://meteofrance.com" target="_blank" rel="noopener"><span class="nom">Météo-France</span><span class="url">meteofrance.com</span></a>
+<a class="res-item" href="https://www.infoclimat.fr" target="_blank" rel="noopener"><span class="nom">Infoclimat</span><span class="url">www.infoclimat.fr</span></a>
+<a class="res-item" href="https://www.windy.com" target="_blank" rel="noopener"><span class="nom">Windy</span><span class="url">www.windy.com</span></a>
+</div>
+</div><div class="res-bloc"><div class="res-titre"><span>🌌</span><span>Ciel étoilé</span></div>
+<div class="res-grille">
+<a class="res-item" href="https://www.lightpollutionmap.info" target="_blank" rel="noopener"><span class="nom">Light Pollution Map</span><span class="url">www.lightpollutionmap.info</span></a>
+<a class="res-item" href="https://stellarium-web.org" target="_blank" rel="noopener"><span class="nom">Stellarium Web</span><span class="url">stellarium-web.org</span></a>
+<a class="res-item" href="https://www.astrospheric.com" target="_blank" rel="noopener"><span class="nom">Astrospheric</span><span class="url">www.astrospheric.com</span></a>
+</div>
+</div><div class="res-bloc"><div class="res-titre"><span>🏥</span><span>Santé</span></div>
+<div class="res-grille">
+<a class="res-item" href="https://www.doctolib.fr" target="_blank" rel="noopener"><span class="nom">Doctolib</span><span class="url">www.doctolib.fr</span></a>
+<a class="res-item" href="https://www.ameli.fr" target="_blank" rel="noopener"><span class="nom">Ameli</span><span class="url">www.ameli.fr</span></a>
+<a class="res-item" href="https://www.pagesjaunes.fr" target="_blank" rel="noopener"><span class="nom">PagesJaunes Santé</span><span class="url">www.pagesjaunes.fr</span></a>
+</div>
+</div><div class="res-bloc"><div class="res-titre"><span>⛽</span><span>Carburants</span></div>
+<div class="res-grille">
+<a class="res-item" href="https://www.prix-carburants.gouv.fr" target="_blank" rel="noopener"><span class="nom">Prix-Carburants</span><span class="url">www.prix-carburants.gouv.fr</span></a>
+</div>
+</div><div class="res-bloc"><div class="res-titre"><span>🚨</span><span>Risques naturels &amp; technologiques</span></div>
+<div class="res-grille">
+<a class="res-item" href="https://www.georisques.gouv.fr" target="_blank" rel="noopener"><span class="nom">GéoRisques</span><span class="url">www.georisques.gouv.fr</span></a>
+<a class="res-item" href="https://www.vigicrues.gouv.fr" target="_blank" rel="noopener"><span class="nom">Vigicrues</span><span class="url">www.vigicrues.gouv.fr</span></a>
+</div>
+</div><div class="encadre bistre"><h4>À consulter avant toute signature</h4><p>GéoRisques fournit, pour une adresse précise, l'état des risques réglementé (inondation, retrait-gonflement des argiles, sismicité, radon, sites pollués). Ce document est obligatoire à la location comme à la vente. Le consulter soi-même évite les mauvaises surprises au moment de l'état des lieux.</p></div>
+  </div>
+  <div class="pied">
+    <div>Ressources officielles · v1.0</div>
+    <div class="nav"><a href="#p-res-carto">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-res-data">→</a></div>
+    <div>11</div>
+  </div>
+</section>
+
+<section class="page" id="p-res-data">
+  <div class="onglet"><span>Ressources</span></div>
+  <div class="entete"><div>Chapitre 1 — Ressources officielles</div><div><b>1.5 Données</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">1.5 — Sources</span>
+    <h2>Photographies libres &amp; données publiques</h2>
+    <p class="chapo" style="font-size:10.5pt;margin-bottom:5mm">Les sources iconographiques réutilisables et les bases statistiques officielles qui alimentent les chiffres clés de chaque fiche.</p>
+    <div class="res-bloc"><div class="res-titre"><span>📷</span><span>Photographies libres de droits</span></div>
+<div class="res-grille">
+<a class="res-item" href="https://unsplash.com" target="_blank" rel="noopener"><span class="nom">Unsplash</span><span class="url">unsplash.com</span></a>
+<a class="res-item" href="https://www.pexels.com" target="_blank" rel="noopener"><span class="nom">Pexels</span><span class="url">www.pexels.com</span></a>
+<a class="res-item" href="https://pixabay.com" target="_blank" rel="noopener"><span class="nom">Pixabay</span><span class="url">pixabay.com</span></a>
+<a class="res-item" href="https://commons.wikimedia.org" target="_blank" rel="noopener"><span class="nom">Wikimedia Commons</span><span class="url">commons.wikimedia.org</span></a>
+</div>
+</div><div class="res-bloc"><div class="res-titre"><span>📊</span><span>Données officielles</span></div>
+<div class="res-grille">
+<a class="res-item" href="https://www.insee.fr" target="_blank" rel="noopener"><span class="nom">INSEE</span><span class="url">www.insee.fr</span></a>
+<a class="res-item" href="https://www.data.gouv.fr" target="_blank" rel="noopener"><span class="nom">data.gouv.fr</span><span class="url">www.data.gouv.fr</span></a>
+<a class="res-item" href="https://www.service-public.fr" target="_blank" rel="noopener"><span class="nom">Service-Public.fr</span><span class="url">www.service-public.fr</span></a>
+<a class="res-item" href="https://www.ign.fr" target="_blank" rel="noopener"><span class="nom">IGN</span><span class="url">www.ign.fr</span></a>
+<a class="res-item" href="https://www.geoportail.gouv.fr" target="_blank" rel="noopener"><span class="nom">Géoportail</span><span class="url">www.geoportail.gouv.fr</span></a>
+</div>
+</div><div class="filet"></div>
+  <h4>Ce que chaque base apporte à une fiche territoire</h4>
+  <table>
+    <tr><th style="width:32mm">Source</th><th>Données exploitées dans ce guide</th></tr>
+    <tr><td class="num">INSEE</td><td>Population légale, densité, superficie, structure par âge, taux de chômage de la zone d'emploi, revenu médian, parc de logements.</td></tr>
+    <tr><td class="num">data.gouv.fr</td><td>Équipements et services (base permanente des équipements), effectifs d'établissements employeurs, couverture réseau, prix des carburants.</td></tr>
+    <tr><td class="num">IGN / Géoportail</td><td>Altitude, relief, occupation des sols, limites communales, sentiers, cadastre.</td></tr>
+    <tr><td class="num">Service-Public.fr</td><td>Coordonnées des mairies, France Services, démarches d'installation.</td></tr>
+  </table>
+  <div class="encadre foret"><h4>Droits d'usage des images</h4><p>Toute photographie reproduite dans ce guide porte sa source et sa licence en légende. Les banques listées ci-dessus autorisent l'usage commercial ; Wikimedia Commons impose la mention de l'auteur selon la licence de chaque fichier.</p></div>
+  </div>
+  <div class="pied">
+    <div>Ressources officielles · v1.0</div>
+    <div class="nav"><a href="#p-res-meteo">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-outils">→</a></div>
+    <div>12</div>
+  </div>
+</section>
+
+<!-- ============ 1.6 BOÎTE À OUTILS ============ -->
+<section class="page" id="p-outils">
+  <div class="onglet"><span>Ressources</span></div>
+  <div class="entete"><div>Chapitre 1 — Ressources officielles</div><div><b>1.6 Boîte à outils</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">1.6 — Outils de terrain</span>
+    <h2>La boîte à outils</h2>
+    <p class="chapo" style="font-size:10.5pt;margin-bottom:5mm">Les applications qui font la différence entre lire une annonce et comprendre un territoire. Cette section sera complétée en phase 3 ; sa structure est fixée ici.</p>
+
+    <table>
+      <tr><th style="width:40mm">Outil</th><th style="width:26mm">Usage</th><th>Ce qu'il permet</th></tr>
+      <tr><td class="num"><a class="lien" href="https://www.geoportail.gouv.fr" target="_blank">Géoportail</a></td><td>Territoire</td><td>Superposer relief, cadastre, occupation des sols, zones protégées sur une même vue.</td></tr>
+      <tr><td class="num"><a class="lien" href="https://earth.google.com" target="_blank">Google Earth Pro</a></td><td>Territoire</td><td>Mesurer distances et pentes, visualiser l'ensoleillement d'une parcelle selon la saison.</td></tr>
+      <tr><td class="num"><a class="lien" href="https://maps.google.com" target="_blank">Street View</a></td><td>Repérage</td><td>Parcourir le village, l'état du bâti et les commerces ouverts sans se déplacer.</td></tr>
+      <tr><td class="num"><a class="lien" href="https://remonterletemps.ign.fr" target="_blank">Remonter le Temps</a></td><td>Historique</td><td>Comparer 1950 / aujourd'hui : ce qui a poussé, ce qui a fermé.</td></tr>
+      <tr><td class="num"><a class="lien" href="https://www.georisques.gouv.fr" target="_blank">GéoRisques</a></td><td>Risques</td><td>État des risques réglementé pour une adresse précise.</td></tr>
+      <tr><td class="num"><a class="lien" href="https://www.lightpollutionmap.info" target="_blank">Light Pollution Map</a></td><td>Ciel</td><td>Mesurer la qualité du ciel nocturne avant de choisir un hameau.</td></tr>
+      <tr><td class="num"><span class="vide">— à compléter —</span></td><td colspan="2"><span class="vide">Veille immobilière · alertes multi-portails · suivi des baisses de prix · estimation · trajets</span></td></tr>
+    </table>
+
+    <div class="encadre bistre">
+      <h4>Structure retenue pour la version complète</h4>
+      <p>La boîte à outils finale comptera de 50 à 100 entrées réparties en six familles : <b>Territoire</b> (cartographie, relief, cadastre) · <b>Veille immobilière</b> (agrégateurs, alertes, historique de prix) · <b>Emploi</b> (agrégateurs, pages carrière, réseaux) · <b>Conditions de vie</b> (climat, réseau, risques) · <b>Terrain</b> (navigation, traces GPX, photo) · <b>Démarches</b> (installation, fiscalité, services publics).</p>
+      <p>Chaque entrée portera : nom, lien direct, plateforme, gratuité, et une ligne décrivant précisément ce qu'elle permet de décider.</p>
+    </div>
+
+    <div class="filet"></div>
+    <h4>Règle d'inclusion</h4>
+    <p style="font-size:8.6pt">Un outil n'entre dans cette liste que s'il répond à une question qu'aucun autre outil de la liste ne traite déjà. Les doublons fonctionnels sont écartés, même populaires.</p>
+  </div>
+  <div class="pied">
+    <div>Ressources officielles · v1.0</div>
+    <div class="nav"><a href="#p-res-data">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-ch2">→</a></div>
+    <div>13</div>
+  </div>
+</section>
+
+<!-- ============ OUVERTURE CHAPITRE 2 ============ -->
+<section class="page eau ouverture" id="p-ch2">
+  <div class="onglet"><span>Chapitre 2</span></div>
+  <div class="courbes"><svg viewBox="0 0 210 297" preserveAspectRatio="none">
+    <path d="M-10,200 C60,170 100,220 160,185 S210,160 220,175"/><path d="M-10,214 C60,184 100,234 160,199 S210,174 220,189"/>
+    <path d="M-10,228 C60,198 100,248 160,213 S210,188 220,203"/><path d="M-10,242 C60,212 100,262 160,227 S210,202 220,217"/>
+    <path d="M-10,186 C60,156 100,206 160,171 S210,146 220,161"/><path d="M-10,172 C60,142 100,192 160,157 S210,132 220,147"/>
+    <path d="M-10,158 C60,128 100,178 160,143 S210,118 220,133"/></svg></div>
+  <div class="corps z1" style="display:flex;flex-direction:column;justify-content:flex-end">
+    <div class="num">CHAPITRE DEUX</div>
+    <h1>Comment choisir<br>son futur<br>lieu de vie</h1>
+    <div class="sous">Une méthode en huit axes, à appliquer avant de regarder la moindre annonce. Elle sert à écarter vite, pas à séduire.</div>
+  </div>
+  <div class="pied" style="border-top-color:rgba(255,255,255,.25);color:rgba(255,255,255,.6)">
+    <div>Projet Horizon Premium</div>
+    <div class="nav"><a href="#p-outils" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.35)">←</a><a href="#p-sommaire" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.35)">🏠 Sommaire</a><a href="#p-methode-1" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.35)">→</a></div>
+    <div>15</div>
+  </div>
+</section>
+
+<!-- ============ 2.1 LES HUIT AXES ============ -->
+<section class="page" id="p-methode-1">
+  <div class="onglet"><span>Méthode</span></div>
+  <div class="entete"><div>Chapitre 2 — Méthode</div><div><b>2.1 Les huit axes</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">2.1 — Cadrage</span>
+    <h2>Les huit axes de décision</h2>
+    <p style="max-width:none;margin-bottom:5mm">Avant d'ouvrir une annonce, écrivez votre réponse aux huit questions ci-dessous. Elles constituent votre profil. Les fiches territoire du chapitre 5 sont construites pour y répondre dans le même ordre.</p>
+
+    <table>
+      <tr><th style="width:8mm"></th><th style="width:32mm">Axe</th><th style="width:56mm">La question à se poser</th><th>Le seuil à fixer par écrit</th></tr>
+      <tr><td class="num">01</td><td><b>Budget</b></td><td>Combien puis-je consacrer au logement, charges comprises, sans dépendre d'une prime ?</td><td>Un plafond mensuel en euros, charges et énergie incluses.</td></tr>
+      <tr><td class="num">02</td><td><b>Emploi</b></td><td>Existe-t-il, dans un rayon acceptable, au moins trois employeurs capables de m'embaucher ?</td><td>Un rayon en minutes de trajet et un nombre minimum d'employeurs.</td></tr>
+      <tr><td class="num">03</td><td><b>Distance</b></td><td>Quel trajet quotidien suis-je prêt à faire en hiver, de nuit, sur route de montagne ?</td><td>Un temps de trajet maximal, en conditions dégradées.</td></tr>
+      <tr><td class="num">04</td><td><b>Nature</b></td><td>De quoi ai-je besoin à moins de quinze minutes pour que le cadre justifie le reste ?</td><td>Trois éléments concrets : lac, forêt, dénivelé, rivière, ciel noir.</td></tr>
+      <tr><td class="num">05</td><td><b>Climat</b></td><td>Suis-je prêt à assumer l'hiver réel de ce territoire, et pas seulement l'été ?</td><td>Un nombre de jours de gel et une altitude maximale acceptés.</td></tr>
+      <tr><td class="num">06</td><td><b>Soins</b></td><td>À quelle distance se trouvent un médecin traitant acceptant des patients et un service d'urgences ?</td><td>Un temps d'accès maximal aux urgences.</td></tr>
+      <tr><td class="num">07</td><td><b>Réseau</b></td><td>La fibre et la couverture mobile permettent-elles de travailler, se soigner, se distraire ?</td><td>Un débit minimal et un opérateur mobile qui passe à l'adresse.</td></tr>
+      <tr><td class="num">08</td><td><b>Densité</b></td><td>Quelle taille de commune supporte mon besoin de calme sans devenir un désert de services ?</td><td>Une fourchette d'habitants et un nombre de commerces essentiels.</td></tr>
+    </table>
+
+    <div class="duo" style="margin-top:2mm">
+      <div class="encadre foret"><h4>Le piège de l'été</h4><p>Un territoire se juge en février, pas en août. Vérifiez systématiquement : les commerces ouverts hors saison, la desserte routière par temps de neige, l'amplitude horaire réelle des services publics, et la population permanente par rapport à la population estivale.</p></div>
+      <div class="encadre bistre"><h4>Le piège du coup de cœur</h4><p>Un paysage exceptionnel ne compense jamais un emploi absent. L'ordre d'examen du chapitre suivant place volontairement l'emploi et le budget avant la nature : ce sont eux qui déterminent si l'installation tient dans la durée.</p></div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Méthode · v1.0</div>
+    <div class="nav"><a href="#p-ch2">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-methode-2">→</a></div>
+    <div>16</div>
+  </div>
+</section>
+
+<!-- ============ 2.2 ORDRE D'EXAMEN ============ -->
+<section class="page" id="p-methode-2">
+  <div class="onglet"><span>Méthode</span></div>
+  <div class="entete"><div>Chapitre 2 — Méthode</div><div><b>2.2 Ordre d'examen</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">2.2 — Procédure</span>
+    <h2>Ordre d'examen &amp; critères éliminatoires</h2>
+    <p style="max-width:none">Un territoire s'écarte en quatre minutes ou s'étudie en quatre heures. L'ordre ci-dessous est conçu pour éliminer au plus tôt, avant d'investir du temps.</p>
+
+    <ol class="etapes">
+      <li><b>Emploi.</b> Trois employeurs potentiels dans le rayon fixé ? Sinon, on arrête ici. Aucun autre critère ne rattrape ce point.</li>
+      <li><b>Budget logement.</b> Au moins cinq biens sous le plafond dans les six derniers mois ? Un marché à deux annonces n'est pas un marché.</li>
+      <li><b>Accès aux soins.</b> Urgences accessibles dans le temps fixé, médecin traitant disponible ? À vérifier par appel, pas par annuaire.</li>
+      <li><b>Connectivité.</b> Fibre ou débit suffisant à l'adresse, couverture mobile d'au moins deux opérateurs.</li>
+      <li><b>Climat &amp; altitude.</b> Hiver compatible avec le trajet quotidien et le mode de chauffage envisagé.</li>
+      <li><b>Nature.</b> Les trois éléments définis à l'axe 04, effectivement présents et accessibles à l'année.</li>
+      <li><b>Services du quotidien.</b> Alimentation, carburant, pharmacie, école le cas échéant.</li>
+      <li><b>Visite.</b> Un week-end complet, hors saison touristique, incluant un jour ouvré.</li>
+    </ol>
+
+    <div class="filet"></div>
+    <div class="duo">
+      <div>
+        <h3>Les cinq critères éliminatoires</h3>
+        <ul class="puces">
+          <li>Aucun employeur du secteur visé dans le rayon défini.</li>
+          <li>Urgences à plus du temps d'accès fixé, sans alternative.</li>
+          <li>Marché locatif inférieur à cinq biens sur six mois.</li>
+          <li>Absence de couverture mobile exploitable à l'adresse.</li>
+          <li>Commune sans commerce alimentaire ni carburant à moins de dix minutes.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="encadre">
+          <h4>Le test des quatre saisons</h4>
+          <p>Avant de signer, obtenez pour l'adresse exacte : une photo aérienne d'hiver <i>(Remonter le Temps)</i>, le nombre de jours de gel annuels <i>(Météo-France)</i>, l'historique des alertes <i>(Vigicrues, GéoRisques)</i>, et les horaires d'ouverture hors saison des trois commerces les plus proches.</p>
+        </div>
+        <div class="encadre foret">
+          <h4>Ce que la méthode ne remplace pas</h4>
+          <p>Aucune donnée ne renseigne l'ambiance d'un village, l'accueil des habitants ou le bruit d'une route à six heures du matin. Ces éléments se constatent sur place et pèsent autant que le reste.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Méthode · v1.0</div>
+    <div class="nav"><a href="#p-methode-1">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-ch3">→</a></div>
+    <div>17</div>
+  </div>
+</section>
+<!-- ============ OUVERTURE CHAPITRE 3 ============ -->
+<section class="page sombre ouverture" id="p-ch3">
+  <div class="onglet"><span>Chapitre 3</span></div>
+  <div class="courbes"><svg viewBox="0 0 210 297" preserveAspectRatio="none">
+    <path d="M-10,120 C55,150 105,95 165,130 S215,155 220,140"/><path d="M-10,134 C55,164 105,109 165,144 S215,169 220,154"/>
+    <path d="M-10,148 C55,178 105,123 165,158 S215,183 220,168"/><path d="M-10,162 C55,192 105,137 165,172 S215,197 220,182"/>
+    <path d="M-10,176 C55,206 105,151 165,186 S215,211 220,196"/><path d="M-10,106 C55,136 105,81 165,116 S215,141 220,126"/>
+    <path d="M-10,92 C55,122 105,67 165,102 S215,127 220,112"/></svg></div>
+  <div class="corps z1" style="display:flex;flex-direction:column;justify-content:flex-end">
+    <div class="num">CHAPITRE TROIS</div>
+    <h1>Le système<br>de notation<br>Horizon</h1>
+    <div class="sous">Dix critères, dix points chacun, cent au total. Un barème explicite pour que deux territoires soient réellement comparables.</div>
+    <div class="liste">
+      <div>01 — Nature</div><div>06 — Internet &amp; réseau</div>
+      <div>02 — Travail</div><div>07 — Sécurité</div>
+      <div>03 — Immobilier</div><div>08 — Vie quotidienne</div>
+      <div>04 — Budget</div><div>09 — Accessibilité</div>
+      <div>05 — Santé</div><div>10 — Activités</div>
+    </div>
+  </div>
+  <div class="pied" style="border-top-color:rgba(255,255,255,.25);color:rgba(255,255,255,.55)">
+    <div>Projet Horizon Premium</div>
+    <div class="nav"><a href="#p-methode-2" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)">←</a><a href="#p-sommaire" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)">🏠 Sommaire</a><a href="#p-horizon-1" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)">→</a></div>
+    <div>19</div>
+  </div>
+</section>
+
+<!-- ============ 3.1 BARÈME ============ -->
+<section class="page" id="p-horizon-1">
+  <div class="onglet"><span>Notation</span></div>
+  <div class="entete"><div>Chapitre 3 — Système Horizon</div><div><b>3.1 Barème</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">3.1 — Barème</span>
+    <h2>Les dix critères</h2>
+    <p style="max-width:none;margin-bottom:4mm">Chaque critère est noté de 0 à 10 selon un indicateur mesurable, jamais selon une impression. Le tableau ci-dessous fixe ce qui est mesuré et ce qui vaut la note maximale.</p>
+
+    <table style="font-size:7.6pt">
+      <tr><th style="width:7mm"></th><th style="width:26mm">Critère</th><th style="width:52mm">Indicateur mesuré</th><th>Note 10 / Note 0</th></tr>
+      <tr><td class="num">01</td><td><b>Nature</b></td><td>Éléments naturels majeurs à moins de 15 min, surface boisée, qualité du ciel</td><td><b>10</b> — lac ou massif majeur, forêt dominante, ciel noir · <b>0</b> — plaine agricole sans accès public</td></tr>
+      <tr><td class="num">02</td><td><b>Travail</b></td><td>Nombre d'employeurs du secteur visé à moins de 45 min, offres publiées sur 12 mois</td><td><b>10</b> — plus de 10 employeurs, flux d'offres continu · <b>0</b> — aucun employeur identifié</td></tr>
+      <tr><td class="num">03</td><td><b>Immobilier</b></td><td>Volume d'annonces sur 6 mois, diversité des biens, part de logements vacants</td><td><b>10</b> — marché fluide, plus de 20 biens · <b>0</b> — moins de 3 biens sur 6 mois</td></tr>
+      <tr><td class="num">04</td><td><b>Budget</b></td><td>Loyer médian et coût de la vie rapportés au budget cible</td><td><b>10</b> — loyer médian sous 60 % du plafond · <b>0</b> — loyer médian au-dessus du plafond</td></tr>
+      <tr><td class="num">05</td><td><b>Santé</b></td><td>Temps d'accès aux urgences, densité de médecins généralistes, pharmacies</td><td><b>10</b> — urgences à moins de 20 min, médecins acceptant des patients · <b>0</b> — plus de 45 min</td></tr>
+      <tr><td class="num">06</td><td><b>Internet</b></td><td>Éligibilité fibre, débit cuivre, couverture 4G/5G des quatre opérateurs</td><td><b>10</b> — fibre disponible, 4 opérateurs en 4G · <b>0</b> — ADSL faible, un seul opérateur</td></tr>
+      <tr><td class="num">07</td><td><b>Sécurité</b></td><td>Taux de délinquance de la circonscription, présence gendarmerie, secours</td><td><b>10</b> — taux très inférieur à la moyenne nationale, brigade sur place · <b>0</b> — taux supérieur, secours éloignés</td></tr>
+      <tr><td class="num">08</td><td><b>Vie quotidienne</b></td><td>Commerces essentiels, services publics, école, carburant, amplitude horaire</td><td><b>10</b> — tous les essentiels sur la commune, ouverts à l'année · <b>0</b> — aucun commerce</td></tr>
+      <tr><td class="num">09</td><td><b>Accessibilité</b></td><td>Distance à une voie rapide, à une gare, à une ville de plus de 20 000 habitants</td><td><b>10</b> — axe majeur à moins de 15 min, gare à moins de 30 min · <b>0</b> — enclavement complet</td></tr>
+      <tr><td class="num">10</td><td><b>Activités</b></td><td>Sentiers balisés, plans d'eau praticables, sites sportifs, vie associative</td><td><b>10</b> — offre dense et praticable à l'année · <b>0</b> — aucune activité organisée</td></tr>
+    </table>
+
+    <div class="duo">
+      <div class="encadre bistre"><h4>Pondération</h4><p>Aucun critère n'est pondéré. Les dix pèsent identiquement, pour que le score reste lisible et vérifiable. La hiérarchie personnelle se fait au chapitre 2, en fixant ses seuils — pas en déformant le barème.</p></div>
+      <div class="encadre"><h4>Critère non renseigné</h4><p>Un critère dont la donnée manque est noté <span class="mono">n.d.</span> et retiré du total, qui est alors ramené sur 100 au prorata. Le nombre de critères retenus est indiqué sous le score.</p></div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Système Horizon · v1.0</div>
+    <div class="nav"><a href="#p-ch3">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-horizon-2">→</a></div>
+    <div>20</div>
+  </div>
+</section>
+
+<!-- ============ 3.2 GRILLE VIERGE ============ -->
+<section class="page" id="p-horizon-2">
+  <div class="onglet"><span>Notation</span></div>
+  <div class="entete"><div>Chapitre 3 — Système Horizon</div><div><b>3.2 Grille</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">3.2 — Modèle</span>
+    <h2>Grille de notation</h2>
+    <p style="max-width:none;margin-bottom:4mm">Modèle reproduit à l'identique en fin de chaque fiche territoire. Les valeurs sont laissées vides jusqu'à la production de la fiche correspondante.</p>
+
+    <div class="duo" style="grid-template-columns:1.55fr 1fr;gap:8mm">
+      <div>
+        <h4>Détail par critère</h4>
+        <div class="jauge"><span class="lab">01 · Nature</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">02 · Travail</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">03 · Immobilier</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">04 · Budget</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">05 · Santé</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">06 · Internet</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">07 · Sécurité</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">08 · Vie quotidienne</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">09 · Accessibilité</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">10 · Activités</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+
+        <div class="encadre" style="margin-top:5mm"><h4>Verdict — modèle rédactionnel</h4>
+          <p style="font-size:8.2pt"><b>Convient à :</b> <span class="vide">profil type, situation professionnelle, mode de vie</span></p>
+          <p style="font-size:8.2pt"><b>Ne convient pas à :</b> <span class="vide">contre-indications explicites</span></p>
+          <p style="font-size:8.2pt"><b>Condition de réussite :</b> <span class="vide">l'élément unique qui rend l'installation viable</span></p>
+        </div>
+      </div>
+      <div>
+        <div class="score-total">
+          <div class="n attente">—</div>
+          <div class="l">Score Horizon / 100</div>
+          <div style="font-family:var(--m);font-size:6.4pt;color:var(--lichen);margin-top:3mm">— critères renseignés sur 10</div>
+        </div>
+
+        <div style="margin-top:5mm">
+          <h4>Échelle de lecture</h4>
+          <table style="font-size:7.6pt">
+            <tr><td class="num" style="width:16mm">85 – 100</td><td>À visiter en priorité</td></tr>
+            <tr><td class="num">70 – 84</td><td>Sérieux candidat, à confirmer sur place</td></tr>
+            <tr><td class="num">55 – 69</td><td>Compromis, dépend des seuils personnels</td></tr>
+            <tr><td class="num">40 – 54</td><td>Réserve, un critère majeur fait défaut</td></tr>
+            <tr><td class="num">&lt; 40</td><td>Écarté</td></tr>
+          </table>
+        </div>
+
+        <div class="encadre foret" style="margin-top:4mm">
+          <h4>Lecture du score</h4>
+          <p style="font-size:8.2pt">Un score élevé ne vaut pas recommandation. Un territoire noté 88 avec un 2 en Travail reste éliminatoire pour qui doit travailler sur place. Toujours lire le détail avant le total.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Système Horizon · v1.0</div>
+    <div class="nav"><a href="#p-horizon-1">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-ch4">→</a></div>
+    <div>21</div>
+  </div>
+</section>
+<!-- ============ OUVERTURE CHAPITRE 4 ============ -->
+<section class="page eau ouverture" id="p-ch4">
+  <div class="onglet"><span>Chapitre 4</span></div>
+  <div class="courbes"><svg viewBox="0 0 210 297" preserveAspectRatio="none">
+    <path d="M-10,90 C45,120 95,65 155,100 S215,125 220,110"/><path d="M-10,104 C45,134 95,79 155,114 S215,139 220,124"/>
+    <path d="M-10,118 C45,148 95,93 155,128 S215,153 220,138"/><path d="M-10,132 C45,162 95,107 155,142 S215,167 220,152"/>
+    <path d="M-10,146 C45,176 95,121 155,156 S215,181 220,166"/><path d="M-10,160 C45,190 95,135 155,170 S215,195 220,180"/>
+    <path d="M-10,76 C45,106 95,51 155,86 S215,111 220,96"/></svg></div>
+  <div class="corps z1" style="display:flex;flex-direction:column;justify-content:flex-end">
+    <div class="num">CHAPITRE QUATRE</div>
+    <h1>Modèle de<br>fiche territoire</h1>
+    <div class="sous">Neuf sections, un ordre fixe, une mise en page identique pour les cinquante territoires. C'est cette régularité qui rend la comparaison possible.</div>
+    <div class="liste">
+      <div>4.1 — Présentation · Carte · Chiffres</div><div>4.5 — Nature &amp; activités</div>
+      <div>4.2 — Logement &amp; immobilier</div><div>4.6 — Budget · Climat · Réseau</div>
+      <div>4.3 — Travail &amp; sécurité privée</div><div>4.7 — Galerie</div>
+      <div>4.4 — Vie quotidienne &amp; santé</div><div>4.8 — Analyse Horizon</div>
+    </div>
+  </div>
+  <div class="pied" style="border-top-color:rgba(255,255,255,.25);color:rgba(255,255,255,.6)">
+    <div>Projet Horizon Premium</div>
+    <div class="nav"><a href="#p-horizon-2" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.35)">←</a><a href="#p-sommaire" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.35)">🏠 Sommaire</a><a href="#p-modele-presentation" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.35)">→</a></div>
+    <div>23</div>
+  </div>
+</section>
+
+<!-- ============ 4.1 PRÉSENTATION ============ -->
+<section class="page" id="p-modele-presentation">
+  <div class="onglet"><span>Modèle · Présentation</span></div>
+  <div class="entete"><div>Modèle de fiche · <b>Nom du territoire</b></div><div><b>Présentation</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">4.1 — Présentation · Carte · Chiffres clés</span>
+    <h2 style="font-size:26pt">Nom du territoire</h2>
+    <div style="font-family:var(--m);font-size:7.4pt;letter-spacing:.14em;text-transform:uppercase;color:var(--lichen);margin:-1mm 0 5mm">Département · Région · Code INSEE</div>
+
+    <div class="slot" style="height:52mm;margin-bottom:5mm"><span class="ic">📷</span><span>Photographie pleine largeur — vue caractéristique</span><span style="font-size:6pt;letter-spacing:.06em;text-transform:none">Légende · auteur · licence · date</span></div>
+
+    <div class="duo" style="grid-template-columns:1.25fr 1fr">
+      <div>
+        <h3>En un paragraphe</h3>
+        <p style="font-size:8.8pt"><span class="vide">Trois à quatre phrases : situation, caractère du lieu, ce qui le distingue des territoires voisins, et la raison principale de sa présence dans ce guide.</span></p>
+        <h3 style="margin-top:4mm">Histoire &amp; identité</h3>
+        <p style="font-size:8.8pt"><span class="vide">Ce que le passé explique du présent : industrie, barrage, voie ferrée, agriculture, tourisme.</span></p>
+        <h3 style="margin-top:4mm">Trois raisons d'y regarder de plus près</h3>
+        <ul class="puces">
+          <li><span class="vide">Argument 1 — vérifiable</span></li>
+          <li><span class="vide">Argument 2 — vérifiable</span></li>
+          <li><span class="vide">Argument 3 — vérifiable</span></li>
+        </ul>
+        <h3 style="margin-top:4mm">Trois réserves</h3>
+        <ul class="puces">
+          <li><span class="vide">Réserve 1 — factuelle</span></li>
+          <li><span class="vide">Réserve 2 — factuelle</span></li>
+          <li><span class="vide">Réserve 3 — factuelle</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="slot" style="height:44mm;margin-bottom:3mm"><span class="ic">🗺️</span><span>Carte de situation</span><span style="font-size:6pt;letter-spacing:.06em;text-transform:none">France → région → commune</span></div>
+        <div class="fiche">
+          <div class="fiche-tete"><span class="t">Chiffres clés</span><span class="r">Source INSEE</span></div>
+          <div class="fiche-corps">
+            <div class="ligne"><span class="k">Population</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Densité</span><span class="v vide">— hab/km²</span></div>
+            <div class="ligne"><span class="k">Superficie</span><span class="v vide">— km²</span></div>
+            <div class="ligne"><span class="k">Altitude</span><span class="v vide">— m</span></div>
+            <div class="ligne"><span class="k">Code postal</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Code INSEE</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Coordonnées</span><span class="v vide">— N · — E</span></div>
+            <div class="ligne"><span class="k">Intercommunalité</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Ville &gt; 20 000 hab.</span><span class="v vide">— km · — min</span></div>
+          </div>
+        </div>
+        <div style="margin-top:2mm">
+          <a class="bouton creux" href="#">Mairie</a><a class="bouton creux" href="#">INSEE</a><a class="bouton creux" href="#">Géoportail</a><a class="bouton creux" href="#">Google Maps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Modèle de fiche · Présentation</div>
+    <div class="nav"><a href="#p-ch4">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-modele-logement">→</a></div>
+    <div>24</div>
+  </div>
+</section>
+
+<!-- ============ 4.2a LOGEMENT ============ -->
+<section class="page" id="p-modele-logement">
+  <div class="onglet"><span>Modèle · Logement</span></div>
+  <div class="entete"><div>Modèle de fiche · <b>Nom du territoire</b></div><div><b>Logement</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">4.2 — Logement</span>
+    <h2>Biens observés</h2>
+    <p style="max-width:none;font-size:8.6pt;margin-bottom:4mm">Chaque bien relevé est daté. Les annonces expirent : ces fiches servent d'échantillon de marché, pas de catalogue.</p>
+
+    <div class="duo">
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">Bien nº1</span><span class="r">Relevé le —</span></div>
+        <div class="slot" style="height:34mm;border:0;border-bottom:.5pt dashed var(--trait)"><span class="ic">📷</span><span>Photographie</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Loyer</span><span class="v vide">— €/mois</span></div>
+          <div class="ligne"><span class="k">Charges</span><span class="v vide">— €/mois</span></div>
+          <div class="ligne"><span class="k">Surface</span><span class="v vide">— m²</span></div>
+          <div class="ligne"><span class="k">Pièces</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">Terrain</span><span class="v vide">— m²</span></div>
+          <div class="ligne"><span class="k">Garage</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">Chauffage</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">DPE</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">Fibre</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">Secteur</span><span class="v vide">—</span></div>
+          <div style="margin-top:2mm;padding-top:2mm;border-top:.4pt solid var(--trait-fin)">
+            <div class="ligne"><span class="k">Centre</span><span class="v vide">— min</span></div>
+            <div class="ligne"><span class="k">Supermarché</span><span class="v vide">— min</span></div>
+            <div class="ligne"><span class="k">Pharmacie</span><span class="v vide">— min</span></div>
+            <div class="ligne"><span class="k">Urgences</span><span class="v vide">— min</span></div>
+            <div class="ligne"><span class="k">Zone d'emploi</span><span class="v vide">— min</span></div>
+            <div class="ligne"><span class="k">Lac / nature</span><span class="v vide">— min</span></div>
+          </div>
+          <div style="margin-top:2.5mm">
+            <a class="bouton" href="#">Voir l'annonce</a><a class="bouton creux" href="#">Carte</a>
+          </div>
+          <p style="font-size:7.4pt;margin:2mm 0 0"><b>Points forts —</b> <span class="vide">deux éléments</span><br><b>Réserves —</b> <span class="vide">deux éléments</span></p>
+        </div>
+      </div>
+
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">Bien nº2</span><span class="r">Relevé le —</span></div>
+        <div class="slot" style="height:34mm;border:0;border-bottom:.5pt dashed var(--trait)"><span class="ic">📷</span><span>Photographie</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Loyer</span><span class="v vide">— €/mois</span></div>
+          <div class="ligne"><span class="k">Charges</span><span class="v vide">— €/mois</span></div>
+          <div class="ligne"><span class="k">Surface</span><span class="v vide">— m²</span></div>
+          <div class="ligne"><span class="k">Pièces</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">Terrain</span><span class="v vide">— m²</span></div>
+          <div class="ligne"><span class="k">Garage</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">Chauffage</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">DPE</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">Fibre</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">Secteur</span><span class="v vide">—</span></div>
+          <div style="margin-top:2mm;padding-top:2mm;border-top:.4pt solid var(--trait-fin)">
+            <div class="ligne"><span class="k">Centre</span><span class="v vide">— min</span></div>
+            <div class="ligne"><span class="k">Supermarché</span><span class="v vide">— min</span></div>
+            <div class="ligne"><span class="k">Pharmacie</span><span class="v vide">— min</span></div>
+            <div class="ligne"><span class="k">Urgences</span><span class="v vide">— min</span></div>
+            <div class="ligne"><span class="k">Zone d'emploi</span><span class="v vide">— min</span></div>
+            <div class="ligne"><span class="k">Lac / nature</span><span class="v vide">— min</span></div>
+          </div>
+          <div style="margin-top:2.5mm">
+            <a class="bouton" href="#">Voir l'annonce</a><a class="bouton creux" href="#">Carte</a>
+          </div>
+          <p style="font-size:7.4pt;margin:2mm 0 0"><b>Points forts —</b> <span class="vide">deux éléments</span><br><b>Réserves —</b> <span class="vide">deux éléments</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Modèle de fiche · Logement</div>
+    <div class="nav"><a href="#p-modele-presentation">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-modele-marche">→</a></div>
+    <div>25</div>
+  </div>
+</section>
+
+<!-- ============ 4.2b MARCHÉ ============ -->
+<section class="page" id="p-modele-marche">
+  <div class="onglet"><span>Modèle · Immobilier</span></div>
+  <div class="entete"><div>Modèle de fiche · <b>Nom du territoire</b></div><div><b>Marché immobilier</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">4.2 — Marché immobilier</span>
+    <h2>État du marché</h2>
+
+    <div class="duo" style="grid-template-columns:1fr 1fr;gap:7mm">
+      <div>
+        <h4>Niveaux de prix</h4>
+        <table>
+          <tr><th>Segment</th><th style="width:22mm">Médiane</th><th style="width:24mm">Fourchette</th></tr>
+          <tr><td>Location maison</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+          <tr><td>Location appartement</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+          <tr><td>Achat maison (€/m²)</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+          <tr><td>Terrain (€/m²)</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+        </table>
+        <h4 style="margin-top:4mm">Tension du marché</h4>
+        <table>
+          <tr><td>Annonces actives</td><td class="num vide">—</td></tr>
+          <tr><td>Annonces sur 6 mois</td><td class="num vide">—</td></tr>
+          <tr><td>Délai moyen de location</td><td class="num vide">—</td></tr>
+          <tr><td>Part de logements vacants</td><td class="num vide">—</td></tr>
+          <tr><td>Évolution sur 5 ans</td><td class="num vide">—</td></tr>
+        </table>
+        <div class="slot" style="height:30mm;margin-top:3mm"><span class="ic">📈</span><span>Graphique — évolution des prix</span></div>
+      </div>
+      <div>
+        <h4>Où chercher</h4>
+        <table style="font-size:7.8pt">
+          <tr><th>Canal</th><th style="width:20mm">Volume local</th><th>Ce qu'on y trouve</th></tr>
+          <tr><td><a class="lien" href="https://www.leboncoin.fr/immobilier" target="_blank">Le Bon Coin</a></td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td><a class="lien" href="https://www.pap.fr" target="_blank">PAP</a></td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td><a class="lien" href="https://www.seloger.com" target="_blank">SeLoger</a></td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td><a class="lien" href="https://www.bienici.com" target="_blank">Bien'ici</a></td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Agences locales</td><td class="num vide">—</td><td class="vide">—</td></tr>
+        </table>
+
+        <h4 style="margin-top:4mm">Agences présentes sur le secteur</h4>
+        <div class="fiche">
+          <div class="fiche-tete"><span class="t">Agence — nom</span><span class="r">Distance</span></div>
+          <div class="fiche-corps">
+            <div class="ligne"><span class="k">Adresse</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Téléphone</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Courriel</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Spécialité</span><span class="v vide">—</span></div>
+            <div style="margin-top:2mm"><a class="bouton creux" href="#">Site</a><a class="bouton creux" href="#">Maps</a></div>
+          </div>
+        </div>
+        <p style="font-size:7.4pt;color:var(--lichen);margin-top:2mm">Bloc répété autant de fois qu'il y a d'agences sur le secteur.</p>
+
+        <div class="encadre bistre"><h4>Quartiers</h4><p style="font-size:8.2pt"><b>À privilégier —</b> <span class="vide">secteurs et raisons</span><br><b>À examiner de près —</b> <span class="vide">nuisances, exposition, accès hiver</span></p></div>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Modèle de fiche · Marché immobilier</div>
+    <div class="nav"><a href="#p-modele-logement">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-modele-travail">→</a></div>
+    <div>26</div>
+  </div>
+</section>
+
+<!-- ============ 4.3a TRAVAIL ============ -->
+<section class="page" id="p-modele-travail">
+  <div class="onglet"><span>Modèle · Travail</span></div>
+  <div class="entete"><div>Modèle de fiche · <b>Nom du territoire</b></div><div><b>Travail</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">4.3 — Bassin d'emploi</span>
+    <h2>Employeurs du secteur</h2>
+
+    <div class="duo" style="grid-template-columns:1fr 1fr;gap:6mm">
+      <div>
+        <h4>Vue d'ensemble</h4>
+        <table>
+          <tr><td>Zone d'emploi</td><td class="num vide">—</td></tr>
+          <tr><td>Taux de chômage</td><td class="num vide">—</td></tr>
+          <tr><td>Emplois totaux</td><td class="num vide">—</td></tr>
+          <tr><td>Secteurs dominants</td><td class="num vide">—</td></tr>
+          <tr><td>Offres publiées / an</td><td class="num vide">—</td></tr>
+        </table>
+        <div class="slot" style="height:36mm;margin-top:3mm"><span class="ic">🗺️</span><span>Carte des zones d'emploi</span><span style="font-size:6pt;letter-spacing:.06em;text-transform:none">Isochrones 15 / 30 / 45 min</span></div>
+      </div>
+      <div>
+        <div class="fiche">
+          <div class="fiche-tete"><span class="t">Employeur — nom</span><span class="r">— min</span></div>
+          <div class="fiche-corps">
+            <div class="ligne"><span class="k">Secteur</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Adresse</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Effectif</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Métiers</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Téléphone</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Courriel</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Trajet</span><span class="v vide">— km · — min</span></div>
+            <div style="margin-top:2mm"><a class="bouton" href="#">Page carrière</a><a class="bouton creux" href="#">Site</a><a class="bouton creux" href="#">Maps</a></div>
+            <p style="font-size:7.4pt;margin:2mm 0 0"><span class="vide">Deux lignes : ce que l'entreprise recrute réellement et à quelle fréquence.</span></p>
+          </div>
+        </div>
+        <p style="font-size:7.4pt;color:var(--lichen);margin-top:2mm">Bloc répété pour chaque employeur significatif du rayon de 45 minutes.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Modèle de fiche · Travail</div>
+    <div class="nav"><a href="#p-modele-marche">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-modele-securite">→</a></div>
+    <div>27</div>
+  </div>
+</section>
+
+<!-- ============ 4.3b SÉCURITÉ PRIVÉE ============ -->
+<section class="page" id="p-modele-securite">
+  <div class="onglet"><span>Modèle · Sécurité privée</span></div>
+  <div class="entete"><div>Modèle de fiche · <b>Nom du territoire</b></div><div><b>Sécurité privée</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">4.3 — Sécurité privée</span>
+    <h2>Sites susceptibles de recruter</h2>
+    <p style="max-width:none;font-size:8.6pt;margin-bottom:4mm">Recensement des sites employant ou sous-traitant de la surveillance humaine dans le rayon retenu, classés par famille.</p>
+
+    <table style="font-size:7.8pt">
+      <tr><th style="width:32mm">Famille de site</th><th style="width:38mm">Établissement</th><th style="width:16mm">Distance</th><th style="width:20mm">Téléphone</th><th>Accès recrutement</th></tr>
+      <tr><td><b>Hôpital / EHPAD</b></td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td><td class="vide">—</td></tr>
+      <tr><td><b>Centre commercial</b></td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td><td class="vide">—</td></tr>
+      <tr><td><b>Site industriel</b></td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td><td class="vide">—</td></tr>
+      <tr><td><b>Site logistique</b></td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td><td class="vide">—</td></tr>
+      <tr><td><b>Site énergie / EDF</b></td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td><td class="vide">—</td></tr>
+      <tr><td><b>Site sensible / public</b></td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td><td class="vide">—</td></tr>
+      <tr><td><b>Événementiel / saison</b></td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td><td class="vide">—</td></tr>
+    </table>
+
+    <div class="filet"></div>
+    <h4>Sociétés de sécurité implantées ou intervenant sur le secteur</h4>
+    <div class="trio">
+      <div class="fiche"><div class="fiche-tete"><span class="t">Société</span><span class="r">— min</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Agence</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">Téléphone</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">Marchés</span><span class="v vide">—</span></div>
+          <div style="margin-top:2mm"><a class="bouton creux" href="#">Recrutement</a></div>
+        </div></div>
+      <div class="fiche"><div class="fiche-tete"><span class="t">Société</span><span class="r">— min</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Agence</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">Téléphone</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">Marchés</span><span class="v vide">—</span></div>
+          <div style="margin-top:2mm"><a class="bouton creux" href="#">Recrutement</a></div>
+        </div></div>
+      <div class="fiche"><div class="fiche-tete"><span class="t">Société</span><span class="r">— min</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Agence</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">Téléphone</span><span class="v vide">—</span></div>
+          <div class="ligne"><span class="k">Marchés</span><span class="v vide">—</span></div>
+          <div style="margin-top:2mm"><a class="bouton creux" href="#">Recrutement</a></div>
+        </div></div>
+    </div>
+
+    <div class="encadre foret"><h4>Lecture du tableau</h4><p style="font-size:8.2pt">Un site apparaît ici s'il emploie de la surveillance humaine en propre ou par prestation. La colonne « accès recrutement » indique le canal réel : page carrière du groupe, agence locale, ou candidature directe auprès du site.</p></div>
+  </div>
+  <div class="pied">
+    <div>Modèle de fiche · Sécurité privée</div>
+    <div class="nav"><a href="#p-modele-travail">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-modele-quotidien">→</a></div>
+    <div>28</div>
+  </div>
+</section>
+
+<!-- ============ 4.4 VIE QUOTIDIENNE & SANTÉ ============ -->
+<section class="page" id="p-modele-quotidien">
+  <div class="onglet"><span>Modèle · Quotidien</span></div>
+  <div class="entete"><div>Modèle de fiche · <b>Nom du territoire</b></div><div><b>Vie quotidienne &amp; santé</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">4.4 — Vie quotidienne &amp; santé</span>
+    <h2>Services du quotidien</h2>
+
+    <div class="duo" style="gap:7mm">
+      <div>
+        <h4>Commerces &amp; services</h4>
+        <table style="font-size:7.8pt">
+          <tr><th style="width:26mm">Service</th><th>Établissement</th><th style="width:14mm">Dist.</th><th style="width:18mm">Horaires</th></tr>
+          <tr><td>Supermarché</td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+          <tr><td>Boulangerie</td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+          <tr><td>Station-service</td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+          <tr><td>Banque / DAB</td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+          <tr><td>Bureau de poste</td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+          <tr><td>France Services</td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+          <tr><td>Garage</td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+          <tr><td>Restaurant</td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+          <tr><td>École</td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+          <tr><td>Salle de sport</td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+          <tr><td>Déchèterie</td><td class="vide">—</td><td class="num vide">—</td><td class="num vide">—</td></tr>
+        </table>
+        <div class="encadre bistre"><h4>Ouverture hors saison</h4><p style="font-size:8.2pt"><span class="vide">Nombre de commerces réellement ouverts en janvier, et jour de fermeture hebdomadaire.</span></p></div>
+      </div>
+      <div>
+        <h4>Santé</h4>
+        <table style="font-size:7.8pt">
+          <tr><th style="width:30mm">Structure</th><th>Établissement</th><th style="width:16mm">Accès</th></tr>
+          <tr><td>Urgences</td><td class="vide">—</td><td class="num vide">— min</td></tr>
+          <tr><td>Hôpital / clinique</td><td class="vide">—</td><td class="num vide">— min</td></tr>
+          <tr><td>Médecin généraliste</td><td class="vide">—</td><td class="num vide">— min</td></tr>
+          <tr><td>Maison de santé</td><td class="vide">—</td><td class="num vide">— min</td></tr>
+          <tr><td>Pharmacie</td><td class="vide">—</td><td class="num vide">— min</td></tr>
+          <tr><td>Dentiste</td><td class="vide">—</td><td class="num vide">— min</td></tr>
+          <tr><td>Laboratoire</td><td class="vide">—</td><td class="num vide">— min</td></tr>
+          <tr><td>Radiologie</td><td class="vide">—</td><td class="num vide">— min</td></tr>
+          <tr><td>Kinésithérapeute</td><td class="vide">—</td><td class="num vide">— min</td></tr>
+          <tr><td>Vétérinaire</td><td class="vide">—</td><td class="num vide">— min</td></tr>
+          <tr><td>SMUR / caserne</td><td class="vide">—</td><td class="num vide">— min</td></tr>
+        </table>
+        <div class="encadre"><h4>Point critique</h4><p style="font-size:8.2pt"><b>Médecin acceptant de nouveaux patients —</b> <span class="vide">oui / non, vérifié par appel le —</span></p><p style="font-size:8.2pt"><b>Délai moyen de rendez-vous —</b> <span class="vide">—</span></p></div>
+        <div style="margin-top:2mm"><a class="bouton creux" href="https://www.doctolib.fr" target="_blank">Doctolib</a><a class="bouton creux" href="https://www.ameli.fr" target="_blank">Ameli</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Modèle de fiche · Vie quotidienne &amp; santé</div>
+    <div class="nav"><a href="#p-modele-securite">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-modele-nature">→</a></div>
+    <div>29</div>
+  </div>
+</section>
+
+<!-- ============ 4.5 NATURE ============ -->
+<section class="page" id="p-modele-nature">
+  <div class="onglet"><span>Modèle · Nature</span></div>
+  <div class="entete"><div>Modèle de fiche · <b>Nom du territoire</b></div><div><b>Nature &amp; activités</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">4.5 — Nature, randonnées &amp; activités</span>
+    <h2>Le terrain</h2>
+
+    <div class="slot" style="height:40mm;margin-bottom:4mm"><span class="ic">🗺️</span><span>Carte nature — lacs, forêts, sentiers, belvédères</span></div>
+
+    <div class="duo" style="gap:7mm">
+      <div>
+        <h4>Sites naturels majeurs</h4>
+        <table style="font-size:7.8pt">
+          <tr><th>Site</th><th style="width:18mm">Type</th><th style="width:14mm">Dist.</th><th style="width:16mm">Saison</th></tr>
+          <tr><td class="vide">—</td><td class="vide">—</td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td class="vide">—</td><td class="vide">—</td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td class="vide">—</td><td class="vide">—</td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td class="vide">—</td><td class="vide">—</td><td class="num vide">—</td><td class="vide">—</td></tr>
+        </table>
+        <h4 style="margin-top:4mm">Activités praticables</h4>
+        <table style="font-size:7.8pt">
+          <tr><th>Activité</th><th style="width:20mm">Où</th><th style="width:22mm">Période</th></tr>
+          <tr><td>Randonnée</td><td class="vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Pêche</td><td class="vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Baignade</td><td class="vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Kayak / paddle</td><td class="vide">—</td><td class="vide">—</td></tr>
+          <tr><td>VTT / trail</td><td class="vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Moto / route</td><td class="vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Observation du ciel</td><td class="vide">—</td><td class="vide">—</td></tr>
+        </table>
+      </div>
+      <div>
+        <h4>Itinéraires détaillés</h4>
+        <div class="fiche">
+          <div class="fiche-tete"><span class="t">Itinéraire — nom</span><span class="r">Difficulté</span></div>
+          <div class="fiche-corps">
+            <div class="ligne"><span class="k">Distance</span><span class="v vide">— km</span></div>
+            <div class="ligne"><span class="k">Dénivelé</span><span class="v vide">— m</span></div>
+            <div class="ligne"><span class="k">Durée</span><span class="v vide">— h</span></div>
+            <div class="ligne"><span class="k">Départ</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Parking</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">GPS</span><span class="v vide">— N · — E</span></div>
+            <div class="ligne"><span class="k">Balisage</span><span class="v vide">—</span></div>
+            <div style="margin-top:2mm"><a class="bouton creux" href="https://www.visorando.com" target="_blank">Fiche &amp; trace</a><a class="bouton creux" href="#">Maps</a></div>
+          </div>
+        </div>
+        <p style="font-size:7.4pt;color:var(--lichen);margin-top:2mm">Bloc répété pour chaque itinéraire retenu.</p>
+        <div class="encadre foret"><h4>Accès à l'année</h4><p style="font-size:8.2pt"><span class="vide">Ce qui reste praticable en hiver, ce qui ferme, et les routes soumises à déneigement.</span></p></div>
+        <div class="encadre bistre"><h4>Réglementation</h4><p style="font-size:8.2pt"><span class="vide">Zones protégées, périodes de chasse, autorisations de pêche, baignade surveillée ou non.</span></p></div>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Modèle de fiche · Nature</div>
+    <div class="nav"><a href="#p-modele-quotidien">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-modele-budget">→</a></div>
+    <div>30</div>
+  </div>
+</section>
+
+<!-- ============ 4.6 BUDGET · CLIMAT · RÉSEAU ============ -->
+<section class="page" id="p-modele-budget">
+  <div class="onglet"><span>Modèle · Budget</span></div>
+  <div class="entete"><div>Modèle de fiche · <b>Nom du territoire</b></div><div><b>Budget · Climat · Réseau</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">4.6 — Budget, climat &amp; connectivité</span>
+    <h2>Coût réel &amp; conditions</h2>
+
+    <div class="duo" style="grid-template-columns:1fr 1fr;gap:7mm">
+      <div>
+        <h4>Budget mensuel type</h4>
+        <table style="font-size:8pt">
+          <tr><th>Poste</th><th style="width:20mm">Montant</th><th style="width:16mm">Source</th></tr>
+          <tr><td>Loyer</td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Charges locatives</td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Électricité / chauffage</td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Eau</td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Internet</td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Assurances</td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Courses</td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Carburant</td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Loisirs</td><td class="num vide">—</td><td class="vide">—</td></tr>
+          <tr style="background:var(--papier-creux)"><td><b>Total</b></td><td class="num vide"><b>—</b></td><td></td></tr>
+        </table>
+        <div class="encadre"><h4>Le poste qui surprend</h4><p style="font-size:8.2pt"><span class="vide">En zone rurale, le carburant et le chauffage pèsent souvent plus que l'écart de loyer gagné. À chiffrer sur la base du trajet domicile-travail réel.</span></p></div>
+      </div>
+      <div>
+        <h4>Climat</h4>
+        <div class="slot" style="height:32mm;margin-bottom:3mm"><span class="ic">📊</span><span>Graphique — températures &amp; précipitations</span></div>
+        <table style="font-size:7.8pt">
+          <tr><td>Température moyenne</td><td class="num vide">—</td></tr>
+          <tr><td>Jours de gel / an</td><td class="num vide">—</td></tr>
+          <tr><td>Jours de neige / an</td><td class="num vide">—</td></tr>
+          <tr><td>Précipitations</td><td class="num vide">— mm</td></tr>
+          <tr><td>Ensoleillement</td><td class="num vide">— h</td></tr>
+        </table>
+
+        <h4 style="margin-top:4mm">Connectivité</h4>
+        <table style="font-size:7.8pt">
+          <tr><th>Opérateur</th><th style="width:16mm">Fibre</th><th style="width:14mm">4G</th><th style="width:14mm">5G</th></tr>
+          <tr><td>Orange</td><td class="vide">—</td><td class="vide">—</td><td class="vide">—</td></tr>
+          <tr><td>SFR</td><td class="vide">—</td><td class="vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Bouygues</td><td class="vide">—</td><td class="vide">—</td><td class="vide">—</td></tr>
+          <tr><td>Free</td><td class="vide">—</td><td class="vide">—</td><td class="vide">—</td></tr>
+        </table>
+
+        <h4 style="margin-top:4mm">Risques recensés</h4>
+        <p style="font-size:8pt"><span class="vide">Inondation · argiles · sismicité · radon · sites pollués — source GéoRisques, à l'adresse.</span></p>
+        <a class="bouton creux" href="https://www.georisques.gouv.fr" target="_blank">GéoRisques</a>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Modèle de fiche · Budget</div>
+    <div class="nav"><a href="#p-modele-nature">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-modele-galerie">→</a></div>
+    <div>31</div>
+  </div>
+</section>
+
+<!-- ============ 4.7 GALERIE ============ -->
+<section class="page" id="p-modele-galerie">
+  <div class="onglet"><span>Modèle · Galerie</span></div>
+  <div class="entete"><div>Modèle de fiche · <b>Nom du territoire</b></div><div><b>Galerie</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">4.7 — Galerie photographique</span>
+    <h2>Le lieu en images</h2>
+
+    <div class="slot" style="height:62mm;margin-bottom:3mm"><span class="ic">📷</span><span>Image d'ouverture — pleine largeur</span><span style="font-size:6pt;letter-spacing:.06em;text-transform:none">Légende · auteur · licence · date de prise de vue</span></div>
+    <div class="duo" style="gap:3mm;margin-bottom:3mm">
+      <div class="slot" style="height:40mm"><span class="ic">📷</span><span>Vue rapprochée</span></div>
+      <div class="slot" style="height:40mm"><span class="ic">📷</span><span>Centre-bourg</span></div>
+    </div>
+    <div class="trio" style="gap:3mm">
+      <div class="slot" style="height:34mm"><span class="ic">📷</span><span>Nature</span></div>
+      <div class="slot" style="height:34mm"><span class="ic">📷</span><span>Hiver</span></div>
+      <div class="slot" style="height:34mm"><span class="ic">📷</span><span>Point de vue</span></div>
+    </div>
+
+    <div class="encadre bistre" style="margin-top:3mm"><h4>Règle iconographique</h4><p style="font-size:8.2pt">Chaque image porte sa source et sa licence. Au moins une vue hivernale par territoire : une galerie exclusivement estivale fausse le jugement.</p></div>
+  </div>
+  <div class="pied">
+    <div>Modèle de fiche · Galerie</div>
+    <div class="nav"><a href="#p-modele-budget">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-modele-horizon">→</a></div>
+    <div>32</div>
+  </div>
+</section>
+
+<!-- ============ 4.8 ANALYSE HORIZON ============ -->
+<section class="page" id="p-modele-horizon">
+  <div class="onglet"><span>Modèle · Analyse</span></div>
+  <div class="entete"><div>Modèle de fiche · <b>Nom du territoire</b></div><div><b>Analyse Horizon</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">4.8 — Analyse Horizon &amp; conclusion</span>
+    <h2>Verdict</h2>
+
+    <div class="duo" style="grid-template-columns:1.5fr 1fr;gap:7mm">
+      <div>
+        <div class="jauge"><span class="lab">01 · Nature</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">02 · Travail</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">03 · Immobilier</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">04 · Budget</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">05 · Santé</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">06 · Internet</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">07 · Sécurité</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">08 · Vie quotidienne</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">09 · Accessibilité</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+        <div class="jauge"><span class="lab">10 · Activités</span><span class="barre"><i style="width:0"></i></span><span class="val attente">— / 10</span></div>
+
+        <div class="duo" style="gap:4mm;margin-top:5mm">
+          <div class="encadre foret" style="margin:0"><h4>Ce qui plaide pour</h4><p style="font-size:8.2pt"><span class="vide">Trois arguments issus des notes ci-dessus.</span></p></div>
+          <div class="encadre bistre" style="margin:0"><h4>Ce qui plaide contre</h4><p style="font-size:8.2pt"><span class="vide">Trois réserves issues des notes ci-dessus.</span></p></div>
+        </div>
+      </div>
+      <div>
+        <div class="score-total"><div class="n attente">—</div><div class="l">Score Horizon / 100</div>
+          <div style="font-family:var(--m);font-size:6.4pt;color:var(--lichen);margin-top:3mm">— critères sur 10 renseignés</div></div>
+        <div class="fiche" style="margin-top:4mm">
+          <div class="fiche-tete"><span class="t">Synthèse</span><span class="r">—</span></div>
+          <div class="fiche-corps">
+            <div class="ligne"><span class="k">Rang</span><span class="v vide">— / 50</span></div>
+            <div class="ligne"><span class="k">Indice Tome I/II</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Écart</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Recommandation</span><span class="v vide">—</span></div>
+            <div class="ligne"><span class="k">Vérifié le</span><span class="v vide">—</span></div>
+          </div>
+        </div>
+        <div class="encadre" style="margin-top:4mm"><h4>Conclusion</h4>
+          <p style="font-size:8.2pt"><b>Convient à —</b> <span class="vide">profil</span></p>
+          <p style="font-size:8.2pt"><b>Ne convient pas à —</b> <span class="vide">profil</span></p>
+          <p style="font-size:8.2pt"><b>Condition de réussite —</b> <span class="vide">l'élément décisif</span></p>
+        </div>
+        <h4 style="margin-top:4mm">Sources de la fiche</h4>
+        <p style="font-size:7.4pt;color:var(--lichen)"><span class="vide">Liste numérotée des sources consultées, avec date d'accès.</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Modèle de fiche · Analyse Horizon</div>
+    <div class="nav"><a href="#p-modele-galerie">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-index">→</a></div>
+    <div>33</div>
+  </div>
+</section>
+<!-- ============ OUVERTURE BORT-LES-ORGUES ============ -->
+<section class="page sombre ouverture" id="p-bort">
+  <div class="onglet"><span>Bort-les-Orgues</span></div>
+  <div class="courbes"><svg viewBox="0 0 210 297" preserveAspectRatio="none">
+    <path d="M-10,150 C40,120 80,175 140,140 S200,110 220,128"/><path d="M-10,164 C40,134 80,189 140,154 S200,124 220,142"/>
+    <path d="M-10,178 C40,148 80,203 140,168 S200,138 220,156"/><path d="M-10,192 C40,162 80,217 140,182 S200,152 220,170"/>
+    <path d="M-10,206 C40,176 80,231 140,196 S200,166 220,184"/><path d="M-10,220 C40,190 80,245 140,210 S200,180 220,198"/>
+    <path d="M-10,136 C40,106 80,161 140,126 S200,96 220,114"/><path d="M-10,122 C40,92 80,147 140,112 S200,82 220,100"/></svg></div>
+  <div class="corps z1" style="display:flex;flex-direction:column;justify-content:flex-end">
+    <div class="num">TERRITOIRE 01 · CORRÈZE · INDICE TOME I 96</div>
+    <h1>Bort-<br>les-Orgues</h1>
+    <div class="sous">2 483 habitants sur 15 km², à 437 m d'altitude, au pied d'un barrage et de falaises phonolitiques. Une petite ville qui a perdu la moitié de sa population en cinquante ans — et dont c'est aujourd'hui le principal atout locatif.</div>
+    <div class="liste">
+      <div>Nouvelle-Aquitaine · Corrèze (19)</div><div>Code INSEE 19028 · CP 19110</div>
+      <div>Arrondissement d'Ussel</div><div>45°24′03″N · 2°29′57″E</div>
+      <div>Haute-Corrèze Communauté</div><div>Altitude 403 – 788 m</div>
+    </div>
+  </div>
+  <div class="pied" style="border-top-color:rgba(255,255,255,.25);color:rgba(255,255,255,.55)">
+    <div>Bort-les-Orgues · Vérifié en juillet 2026</div>
+    <div class="nav"><a href="#p-modele-horizon" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)">←</a><a href="#p-sommaire" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)">🏠 Sommaire</a><a href="#p-bort-marche" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)">→</a></div>
+    <div>35</div>
+  </div>
+</section>
+
+<!-- ============ BORT — ÉTAT DU MARCHÉ ============ -->
+<section class="page" id="p-bort-marche">
+  <div class="onglet"><span>Bort · Logement</span></div>
+  <div class="entete"><div>Bort-les-Orgues · <b>Logement</b></div><div><b>État du marché</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">Logement — 1 / 5</span>
+    <h2>Un parc surdimensionné pour sa population</h2>
+    <p class="chapo" style="font-size:11pt;margin-bottom:5mm">Bort-les-Orgues comptait plus de 5 500 habitants dans les années 1970. Ils sont 2 483 aujourd'hui. Le bâti, lui, n'a pas disparu : près d'un logement sur trois est vacant. C'est la clé de lecture de tout ce chapitre.</p>
+
+    <div class="duo" style="grid-template-columns:1fr 1fr;gap:8mm">
+      <div>
+        <h4>Structure du parc</h4>
+        <table>
+          <tr><th>Indicateur</th><th style="width:24mm">Valeur</th></tr>
+          <tr><td>Résidences principales</td><td class="num">1 368</td></tr>
+          <tr><td>Logements vacants</td><td class="num">610 · <b>29 %</b></td></tr>
+          <tr><td>Évolution de la vacance / 5 ans</td><td class="num">+ 48 · + 9 %</td></tr>
+          <tr><td>Logements sociaux (HLM)</td><td class="num">76 · 3 %</td></tr>
+          <tr><td>Évolution du parc social / 5 ans</td><td class="num">− 46 · − 38 %</td></tr>
+          <tr><td>Part de maisons</td><td class="num">63,6 %</td></tr>
+          <tr><td>Part de propriétaires occupants</td><td class="num">61,4 %</td></tr>
+          <tr><td>Taille moyenne des logements</td><td class="num">4 pièces</td></tr>
+        </table>
+        <p style="font-size:7.2pt;color:var(--lichen)">Sources : INSEE (recensement) via ville-data.com et Orpi / PriceHubble. Consulté le 26 juillet 2026.</p>
+
+        <h4 style="margin-top:4mm">Répartition des résidences principales</h4>
+        <div class="jauge"><span class="lab" style="width:24mm;flex:0 0 24mm">1 pièce</span><span class="barre"><i style="width:3%"></i></span><span class="val">12</span></div>
+        <div class="jauge"><span class="lab" style="width:24mm;flex:0 0 24mm">2 pièces</span><span class="barre"><i style="width:31%"></i></span><span class="val">137</span></div>
+        <div class="jauge"><span class="lab" style="width:24mm;flex:0 0 24mm">3 pièces</span><span class="barre"><i style="width:80%"></i></span><span class="val">359</span></div>
+        <div class="jauge"><span class="lab" style="width:24mm;flex:0 0 24mm">4 pièces</span><span class="barre"><i style="width:93%"></i></span><span class="val">414</span></div>
+        <div class="jauge"><span class="lab" style="width:24mm;flex:0 0 24mm">5 pièces +</span><span class="barre"><i style="width:100%"></i></span><span class="val">446</span></div>
+      </div>
+
+      <div>
+        <div class="encadre foret">
+          <h4>Ce que ça change concrètement</h4>
+          <p>Un taux de vacance de 29 % signifie que le rapport de force est du côté du locataire. Les délais de location s'allongent, les propriétaires négocient, et un bien correct reste disponible plusieurs semaines. C'est l'inverse exact d'un marché tendu.</p>
+          <p>Corollaire : la qualité moyenne du parc est basse. Beaucoup de vacance vient de logements invendables ou inlouables en l'état — passoires thermiques, successions bloquées, bâti ancien non rénové. <b>L'abondance ne vaut que si l'on trie.</b></p>
+        </div>
+
+        <h4 style="margin-top:5mm">Niveau des loyers</h4>
+        <table>
+          <tr><th>Segment</th><th style="width:26mm">Loyer / m²</th></tr>
+          <tr><td>Moyenne toutes catégories</td><td class="num">10 €/m²</td></tr>
+          <tr><td>Fourchette observée</td><td class="num">6 – 14 €/m²</td></tr>
+          <tr><td>Appartements</td><td class="num">≈ 10 €/m²</td></tr>
+          <tr><td>Maisons</td><td class="num">≈ 10 €/m²</td></tr>
+        </table>
+        <p style="font-size:7.2pt;color:var(--lichen)">Source : <a class="lien" href="https://www.seloger.com/prix-de-l-immo/location/limousin/correze/bort-les-orgues/190028.htm" target="_blank">SeLoger — prix de la location</a>, estimation septembre 2025.</p>
+
+        <div class="encadre bistre">
+          <h4>Lecture critique de ce chiffre</h4>
+          <p>Le loyer moyen au m² est trompeur sur un marché de petits volumes. Les biens réellement relevés en juillet 2026 (page suivante) s'échelonnent de <b>5,6 à 13,9 €/m²</b> : l'écart tient presque entièrement à la surface. Plus le bien est grand, plus le prix au m² s'effondre.</p>
+        </div>
+
+        <div class="fiche">
+          <div class="fiche-tete"><span class="t">Repères de contexte</span><span class="r">INSEE</span></div>
+          <div class="fiche-corps">
+            <div class="ligne"><span class="k">Revenu médian ménage</span><span class="v">20 922 €/an</span></div>
+            <div class="ligne"><span class="k">Âge moyen</span><span class="v">52 ans</span></div>
+            <div class="ligne"><span class="k">Population 2023</span><span class="v">2 483 hab.</span></div>
+            <div class="ligne"><span class="k">Évolution 2017–2023</span><span class="v">− 7,25 %</span></div>
+            <div class="ligne"><span class="k">Densité</span><span class="v">165 hab/km²</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Bort-les-Orgues · Logement · Vérifié le 26.07.2026</div>
+    <div class="nav"><a href="#p-bort">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-bort-biens-1">→</a></div>
+    <div>36</div>
+  </div>
+</section>
+
+<!-- ============ BORT — BIENS OBSERVÉS 1 ============ -->
+<section class="page" id="p-bort-biens-1">
+  <div class="onglet"><span>Bort · Logement</span></div>
+  <div class="entete"><div>Bort-les-Orgues · <b>Logement</b></div><div><b>Biens observés — grandes surfaces</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">Logement — 2 / 5</span>
+    <h2>Biens relevés — 4 pièces et plus</h2>
+    <p style="max-width:none;font-size:8.6pt;margin-bottom:4mm">Échantillon relevé en juillet 2026 sur Le Bon Coin, Logic-Immo, SeLoger et les portails agrégateurs. <b>Ces annonces expirent.</b> Elles servent à établir le niveau réel du marché, pas à être contactées telles quelles.</p>
+
+    <div class="duo">
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">Maison de plain-pied · 88 m²</span><span class="r">650 € CC</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Type</span><span class="v">Maison individuelle</span></div>
+          <div class="ligne"><span class="k">Loyer</span><span class="v">650 €/mois charges comprises</span></div>
+          <div class="ligne"><span class="k">Ratio</span><span class="v">7,4 €/m²</span></div>
+          <div class="ligne"><span class="k">Pièces</span><span class="v">3 chambres · séjour ouvert</span></div>
+          <div class="ligne"><span class="k">Garage</span><span class="v">Attenant</span></div>
+          <div class="ligne"><span class="k">Terrain</span><span class="v">Oui, surface non précisée</span></div>
+          <div class="ligne"><span class="k">Chauffage</span><span class="v">Électrique + insert bois</span></div>
+          <div class="ligne"><span class="k">Énergie estimée</span><span class="v">1 590 – 2 200 €/an</span></div>
+          <div class="ligne"><span class="k">Secteur</span><span class="v">La Plantade</span></div>
+          <div class="ligne"><span class="k">Relevé le</span><span class="v">26.07.2026</span></div>
+          <p style="font-size:7.4pt;margin:2.5mm 0 0"><b>Pour —</b> plain-pied, garage attenant, terrain, double chauffage. Le profil recherché.<br><b>Contre —</b> coût énergétique annoncé élevé ; DPE non communiqué dans l'annonce.</p>
+          <div style="margin-top:2mm"><a class="bouton" href="https://www.leboncoin.fr/cl/locations/cp_bort-les-orgues_19110" target="_blank">Chercher ce bien</a></div>
+        </div>
+      </div>
+
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">4 pièces · 69 m² · sous-sol</span><span class="r">545 € CC</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Type</span><span class="v">4 pièces avec sous-sol total</span></div>
+          <div class="ligne"><span class="k">Loyer</span><span class="v">545 €/mois CC</span></div>
+          <div class="ligne"><span class="k">Dont charges</span><span class="v">15 €/mois</span></div>
+          <div class="ligne"><span class="k">Ratio hors charges</span><span class="v">7,7 €/m²</span></div>
+          <div class="ligne"><span class="k">Sous-sol</span><span class="v">Pièce · garage · cave · chaufferie</span></div>
+          <div class="ligne"><span class="k">Terrain</span><span class="v">Oui</span></div>
+          <div class="ligne"><span class="k">Chauffage</span><span class="v">Fioul</span></div>
+          <div class="ligne"><span class="k">Régularisation</span><span class="v">Annuelle</span></div>
+          <div class="ligne"><span class="k">Source</span><span class="v">Le Bon Coin · pro</span></div>
+          <div class="ligne"><span class="k">Relevé le</span><span class="v">26.07.2026</span></div>
+          <p style="font-size:7.4pt;margin:2.5mm 0 0"><b>Pour —</b> le meilleur rapport volume / prix de l'échantillon ; garage et cave inclus.<br><b>Contre —</b> chauffage fioul : provision de 15 €/mois manifestement sous-évaluée, régularisation à anticiper.</p>
+          <div style="margin-top:2mm"><a class="bouton" href="https://www.leboncoin.fr/cl/locations/cp_bort-les-orgues_19110" target="_blank">Chercher ce bien</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="duo" style="margin-top:5mm">
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">T4 · 65 m² · balcon</span><span class="r">410 € CC</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Loyer</span><span class="v">410 €/mois CC</span></div>
+          <div class="ligne"><span class="k">Dont charges</span><span class="v">40 €/mois</span></div>
+          <div class="ligne"><span class="k">Ratio hors charges</span><span class="v"><b>5,7 €/m²</b></span></div>
+          <div class="ligne"><span class="k">Pièces</span><span class="v">2 chambres · séjour · cuisine</span></div>
+          <div class="ligne"><span class="k">Extérieur</span><span class="v">Balcon</span></div>
+          <div class="ligne"><span class="k">Chauffage</span><span class="v">Gaz individuel</span></div>
+          <div class="ligne"><span class="k">Relevé le</span><span class="v">26.07.2026</span></div>
+          <p style="font-size:7.4pt;margin:2.5mm 0 0"><b>Pour —</b> le loyer au m² le plus bas relevé. Gaz individuel = maîtrise de la consommation.<br><b>Contre —</b> pas de garage ni de terrain.</p>
+        </div>
+      </div>
+
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">T3 · 62 m² · dernier étage</span><span class="r">406 € CC</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Loyer</span><span class="v">406 €/mois CC</span></div>
+          <div class="ligne"><span class="k">Ratio</span><span class="v">6,5 €/m²</span></div>
+          <div class="ligne"><span class="k">Étage</span><span class="v">2/2 — dernier</span></div>
+          <div class="ligne"><span class="k">Pièces</span><span class="v">2 chambres</span></div>
+          <div class="ligne"><span class="k">DPE</span><span class="v">E</span></div>
+          <div class="ligne"><span class="k">GES</span><span class="v">B</span></div>
+          <div class="ligne"><span class="k">Situation</span><span class="v">Centre-ville · commerces à pied</span></div>
+          <div class="ligne"><span class="k">Stationnement</span><span class="v">Parkings gratuits à proximité</span></div>
+          <div class="ligne"><span class="k">Relevé le</span><span class="v">26.07.2026</span></div>
+          <p style="font-size:7.4pt;margin:2.5mm 0 0"><b>Pour —</b> tout à pied, DPE E acceptable pour du bâti ancien, GES B.<br><b>Contre —</b> dernier étage sans ascenseur ; pas d'extérieur.</p>
+          <div style="margin-top:2mm"><a class="bouton" href="https://www.logic-immo.com/recherche-immo/location/immobilier/nouvelle-aquitaine/bort-les-orgues-19110/ad08fr6744" target="_blank">Logic-Immo</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Bort-les-Orgues · Logement · Relevé le 26.07.2026</div>
+    <div class="nav"><a href="#p-bort-marche">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-bort-biens-2">→</a></div>
+    <div>37</div>
+  </div>
+</section>
+
+<!-- ============ BORT — BIENS OBSERVÉS 2 + SYNTHÈSE ============ -->
+<section class="page" id="p-bort-biens-2">
+  <div class="onglet"><span>Bort · Logement</span></div>
+  <div class="entete"><div>Bort-les-Orgues · <b>Logement</b></div><div><b>Petites surfaces &amp; synthèse</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">Logement — 3 / 5</span>
+    <h2>Petites surfaces &amp; tableau de marché</h2>
+
+    <div class="trio" style="margin-bottom:5mm">
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">T2 · 37 m² · RDC</span><span class="r">280 € CC</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Ratio</span><span class="v">7,6 €/m²</span></div>
+          <div class="ligne"><span class="k">Étage</span><span class="v">Rez-de-chaussée</span></div>
+          <div class="ligne"><span class="k">Accès</span><span class="v">Entrée indépendante</span></div>
+          <div class="ligne"><span class="k">Situation</span><span class="v">Centre-ville</span></div>
+          <div class="ligne"><span class="k">Relevé le</span><span class="v">26.07.2026</span></div>
+          <p style="font-size:7.2pt;margin:2mm 0 0">Le loyer le plus bas de l'échantillon. Solution de repli le temps de chercher mieux.</p>
+        </div>
+      </div>
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">Meublé · 36 m²</span><span class="r">375 €</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Ratio</span><span class="v">10,4 €/m²</span></div>
+          <div class="ligne"><span class="k">État</span><span class="v">Meublé</span></div>
+          <div class="ligne"><span class="k">Composition</span><span class="v">Séjour-cuisine · coin nuit</span></div>
+          <div class="ligne"><span class="k">Situation</span><span class="v">Centre-ville</span></div>
+          <div class="ligne"><span class="k">Relevé le</span><span class="v">26.07.2026</span></div>
+          <p style="font-size:7.2pt;margin:2mm 0 0">Utile pour une période d'essai professionnelle sans déménager.</p>
+        </div>
+      </div>
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">T2 meublé · 53 m²</span><span class="r">450 € + 130</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Loyer</span><span class="v">450 €/mois</span></div>
+          <div class="ligne"><span class="k">Charges</span><span class="v">130 €/mois</span></div>
+          <div class="ligne"><span class="k">Total</span><span class="v"><b>580 €/mois</b></span></div>
+          <div class="ligne"><span class="k">Rénovation</span><span class="v">2020</span></div>
+          <div class="ligne"><span class="k">Chauffage</span><span class="v">Collectif fioul · répartiteurs</span></div>
+          <div class="ligne"><span class="k">Annexes</span><span class="v">Balcon · cave · parking</span></div>
+          <div class="ligne"><span class="k">Proximité</span><span class="v">Hôpital · gare · stade</span></div>
+          <div class="ligne"><span class="k">Disponible</span><span class="v">20.05.2026</span></div>
+          <p style="font-size:7.2pt;margin:2mm 0 0">Charges à 130 € : le vrai coût est 580 €. Piège classique de lecture.</p>
+        </div>
+      </div>
+    </div>
+
+    <h4>Tableau de marché — 11 biens relevés le 26 juillet 2026</h4>
+    <table style="font-size:7.6pt">
+      <tr><th style="width:34mm">Bien</th><th style="width:14mm">Surface</th><th style="width:18mm">Loyer CC</th><th style="width:16mm">€/m²</th><th style="width:22mm">Chauffage</th><th>Observation</th></tr>
+      <tr><td>Maison plain-pied</td><td class="num">88 m²</td><td class="num">650 €</td><td class="num">7,4</td><td>Élec. + insert</td><td>Garage attenant + terrain</td></tr>
+      <tr><td>4 pièces sous-sol</td><td class="num">69 m²</td><td class="num">545 €</td><td class="num">7,7</td><td>Fioul</td><td>Garage, cave, terrain</td></tr>
+      <tr><td>T2 meublé rénové</td><td class="num">53 m²</td><td class="num">580 €</td><td class="num">8,5</td><td>Collectif fioul</td><td>Charges 130 € — le plus cher au réel</td></tr>
+      <tr><td>T3</td><td class="num">79 m²</td><td class="num">440 €</td><td class="num">5,6</td><td>Gaz</td><td>Meilleur ratio de l'échantillon</td></tr>
+      <tr><td>T3</td><td class="num">57 m²</td><td class="num">440 €</td><td class="num">7,7</td><td class="vide">n.d.</td><td>Professionnel</td></tr>
+      <tr><td>T3 dernier étage</td><td class="num">62 m²</td><td class="num">406 €</td><td class="num">6,5</td><td class="vide">n.d.</td><td>DPE E · GES B · centre</td></tr>
+      <tr><td>T4 balcon</td><td class="num">65 m²</td><td class="num">410 €</td><td class="num">5,7</td><td>Gaz individuel</td><td>Charges 40 €</td></tr>
+      <tr><td>T2 RDC</td><td class="num">37 m²</td><td class="num">280 €</td><td class="num">7,6</td><td class="vide">n.d.</td><td>Entrée indépendante</td></tr>
+      <tr><td>Meublé</td><td class="num">36 m²</td><td class="num">375 €</td><td class="num">10,4</td><td class="vide">n.d.</td><td>Centre-ville</td></tr>
+      <tr><td>T2</td><td class="num">32 m²</td><td class="num">340 €</td><td class="num">10,6</td><td class="vide">n.d.</td><td class="vide">—</td></tr>
+      <tr><td>T2</td><td class="num">31 m²</td><td class="num">430 €</td><td class="num">13,9</td><td class="vide">n.d.</td><td>Le plus cher au m²</td></tr>
+      <tr style="background:var(--papier-creux)"><td><b>Médiane</b></td><td class="num"><b>57 m²</b></td><td class="num"><b>430 €</b></td><td class="num"><b>7,6</b></td><td></td><td><b>Fourchette 280 – 650 €</b></td></tr>
+    </table>
+
+    <div class="duo">
+      <div class="encadre foret"><h4>Ce que dit l'échantillon</h4><p style="font-size:8.4pt">Le budget cible de 500–750 €/mois défini au Tome I est <b>largement tenable</b> : il ouvre l'accès aux maisons avec garage et terrain, segment le mieux valorisé du marché. En dessous de 450 €, on bascule sur de l'appartement de centre-ville sans extérieur.</p></div>
+      <div class="encadre bistre"><h4>Le vrai différenciateur : le chauffage</h4><p style="font-size:8.4pt">À 437 m d'altitude en Haute-Corrèze, le poste énergie fait basculer un budget. Les deux biens avec terrain de cet échantillon sont au fioul ou à l'électrique — les deux modes les plus coûteux. <b>Toujours demander les trois dernières factures avant de signer</b>, jamais la seule provision affichée.</p></div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Bort-les-Orgues · Logement · Relevé le 26.07.2026</div>
+    <div class="nav"><a href="#p-bort-biens-1">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-bort-achat">→</a></div>
+    <div>38</div>
+  </div>
+</section>
+
+<!-- ============ BORT — ACHAT ============ -->
+<section class="page" id="p-bort-achat">
+  <div class="onglet"><span>Bort · Immobilier</span></div>
+  <div class="entete"><div>Bort-les-Orgues · <b>Immobilier</b></div><div><b>Prix de vente</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">Immobilier — 4 / 5</span>
+    <h2>Acheter : la commune la moins chère du département</h2>
+
+    <div class="duo" style="grid-template-columns:1fr 1fr;gap:8mm">
+      <div>
+        <h4>Estimations au m² — les sources divergent</h4>
+        <table>
+          <tr><th>Source</th><th style="width:20mm">Date</th><th style="width:22mm">Prix m²</th></tr>
+          <tr><td><a class="lien" href="https://www.meilleursagents.com/prix-immobilier/bort-les-orgues-19110/" target="_blank">MeilleursAgents</a></td><td class="num">01.2026</td><td class="num">969 €</td></tr>
+          <tr><td><a class="lien" href="https://www.pap.fr/vendeur/prix-m2/bort-les-orgues-19110-g13528" target="_blank">PAP</a></td><td class="num">05.2025</td><td class="num">1 000 €</td></tr>
+          <tr><td><a class="lien" href="https://www.orpi.com/prix-immobilier/bort-les-orgues" target="_blank">Orpi / PriceHubble</a></td><td class="num">04.2026</td><td class="num">880 € (maison)</td></tr>
+          <tr><td><a class="lien" href="https://www.journaldunet.com/patrimoine/prix-immobilier/bort-les-orgues/ville-19028" target="_blank">Journal du Net</a></td><td class="num">2026</td><td class="num">776 €</td></tr>
+        </table>
+        <div class="encadre bistre" style="margin-top:2mm"><h4>Pourquoi un écart de 25 %</h4><p style="font-size:8.2pt">Sur une commune où il se vend une quarantaine de biens par an, chaque transaction pèse lourd dans la moyenne. Les modèles algorithmiques extrapolent depuis le département. <b>La seule donnée fiable est la base DVF</b>, qui recense les ventes réelles.</p><a class="bouton creux" href="https://www.data.gouv.fr" target="_blank">Base DVF · data.gouv.fr</a></div>
+
+        <h4 style="margin-top:4mm">Détail par type — MeilleursAgents, janvier 2026</h4>
+        <table>
+          <tr><td>Maison</td><td class="num">1 025 €/m²</td></tr>
+          <tr><td>Appartement</td><td class="num">871 €/m²</td></tr>
+          <tr><td>Fourchette basse observée</td><td class="num">425 €/m²</td></tr>
+          <tr><td>Fourchette haute observée</td><td class="num">917 €/m²</td></tr>
+        </table>
+      </div>
+
+      <div>
+        <h4>Évolution du prix moyen au m²</h4>
+        <div class="jauge"><span class="lab" style="width:16mm;flex:0 0 16mm">2018</span><span class="barre"><i style="width:68%"></i></span><span class="val">698 €</span></div>
+        <div class="jauge"><span class="lab" style="width:16mm;flex:0 0 16mm">2022</span><span class="barre"><i style="width:57%"></i></span><span class="val">585 €</span></div>
+        <div class="jauge"><span class="lab" style="width:16mm;flex:0 0 16mm">2024</span><span class="barre"><i style="width:76%"></i></span><span class="val">777 €</span></div>
+        <div class="jauge"><span class="lab" style="width:16mm;flex:0 0 16mm">2026</span><span class="barre"><i style="width:95%"></i></span><span class="val">969 €</span></div>
+        <p style="font-size:7.2pt;color:var(--lichen)">Sources : Orpi / PriceHubble (2018–2024), MeilleursAgents (2026). Séries non homogènes — lire la tendance, pas les valeurs absolues.</p>
+
+        <div class="fiche" style="margin-top:4mm">
+          <div class="fiche-tete"><span class="t">Transaction réelle · rue Marcel Pagnol</span><span class="r">DVF</span></div>
+          <div class="fiche-corps">
+            <div class="ligne"><span class="k">Prix de vente</span><span class="v">87 000 €</span></div>
+            <div class="ligne"><span class="k">Prix au m²</span><span class="v">888 €</span></div>
+            <div class="ligne"><span class="k">Surface bâtie</span><span class="v">108 m²</span></div>
+            <div class="ligne"><span class="k">Parcelle</span><span class="v">620 m²</span></div>
+            <div class="ligne"><span class="k">Construction</span><span class="v">1972</span></div>
+            <div class="ligne"><span class="k">DPE bâtiment</span><span class="v">G</span></div>
+          </div>
+        </div>
+        <p style="font-size:7.2pt;color:var(--lichen)">Source : base DVF via <a class="lien" href="https://immobilier.pappers.fr/prix-immobilier/nouvelle-aquitaine/correze/bort-les-orgues/rue-marcel-pagnol/202" target="_blank">Pappers Immobilier</a>. Exemple représentatif du parc des années 1970.</p>
+
+        <div class="encadre foret"><h4>L'ordre de grandeur à retenir</h4><p style="font-size:8.4pt">Une maison de 100 m² avec terrain se négocie autour de <b>85 000 à 110 000 €</b>. À ce niveau, la mensualité d'un crédit sur 20 ans passe sous le loyer d'un T4. La question devient : combien coûte la remise aux normes énergétiques ?</p></div>
+
+        <div class="encadre"><h4>Marché de la vente — volume</h4><p style="font-size:8.4pt">46 biens vendus en 2021, contre 27 en 2019. 15 maisons et 8 immeubles en vente sur SeLoger au relevé de juillet 2026. Surfaces courantes : 78 à 169 m². Bâti majoritairement 1930–1986.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Bort-les-Orgues · Immobilier · Vérifié le 26.07.2026</div>
+    <div class="nav"><a href="#p-bort-biens-2">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-bort-agences">→</a></div>
+    <div>39</div>
+  </div>
+</section>
+
+<!-- ============ BORT — AGENCES & CANAUX ============ -->
+<section class="page" id="p-bort-agences">
+  <div class="onglet"><span>Bort · Immobilier</span></div>
+  <div class="entete"><div>Bort-les-Orgues · <b>Immobilier</b></div><div><b>Agences &amp; méthode</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">Immobilier — 5 / 5</span>
+    <h2>Où chercher, et dans quel ordre</h2>
+
+    <h4>Agences implantées sur la commune</h4>
+    <div class="duo" style="gap:5mm;margin-bottom:4mm">
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">Artense Immobilier</span><span class="r">Centre</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Adresse</span><span class="v">59 place Marmontel, 19110</span></div>
+          <div class="ligne"><span class="k">Téléphone</span><span class="v">05 55 96 17 90</span></div>
+          <div class="ligne"><span class="k">Courriel</span><span class="v">contact@artense-immobilier.com</span></div>
+          <div class="ligne"><span class="k">Activité</span><span class="v">Location · vente · gestion</span></div>
+          <div class="ligne"><span class="k">Périmètre</span><span class="v">Corrèze · Cantal · Puy-de-Dôme</span></div>
+          <p style="font-size:7.4pt;margin:2mm 0 0">La seule agence de la commune revendiquant explicitement la <b>gestion locative</b>. Premier appel à passer.</p>
+          <div style="margin-top:1.5mm"><a class="bouton" href="http://www.artense-immobilier.com/" target="_blank">Site</a></div>
+        </div>
+      </div>
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">LM Immobilier</span><span class="r">Centre</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Adresse</span><span class="v">159 rue de Paris, 19110</span></div>
+          <div class="ligne"><span class="k">Activité</span><span class="v">Vente · location · gestion</span></div>
+          <div class="ligne"><span class="k">Autres agences</span><span class="v">Ussel · Meymac</span></div>
+          <div class="ligne"><span class="k">Périmètre</span><span class="v">Haute-Corrèze</span></div>
+          <p style="font-size:7.4pt;margin:2mm 0 0">Réseau à trois agences sur la Haute-Corrèze : le meilleur maillage si la recherche s'élargit vers Ussel.</p>
+          <div style="margin-top:1.5mm"><a class="bouton creux" href="https://www.pagesjaunes.fr/annuaire/bort-les-orgues-19/agences-immobilieres" target="_blank">Coordonnées</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trio" style="margin-bottom:4mm">
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">Cabinet Massif Immobilier</span><span class="r">Centre</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Adresse</span><span class="v">51 place du Faubourg</span></div>
+          <div class="ligne"><span class="k">Téléphone</span><span class="v">05 55 46 …</span></div>
+          <div class="ligne"><span class="k">Activité</span><span class="v">Vente · estimation · saisonnier</span></div>
+          <p style="font-size:7.2pt;margin:2mm 0 0">Orientation vente et location saisonnière.</p>
+        </div>
+      </div>
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">Ashley Immobilier</span><span class="r">Secteur</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Présence</span><span class="v">Exclusivités Logic-Immo</span></div>
+          <div class="ligne"><span class="k">Activité</span><span class="v">Location · commerce</span></div>
+          <p style="font-size:7.2pt;margin:2mm 0 0">Détient une part des exclusivités locatives publiées sur le secteur.</p>
+        </div>
+      </div>
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">Nestenn Bort-les-Orgues</span><span class="r">Ouverture</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Statut</span><span class="v">En cours d'ouverture</span></div>
+          <div class="ligne"><span class="k">Téléphone</span><span class="v">0 806 800 116</span></div>
+          <div class="ligne"><span class="k">Réseau</span><span class="v">Ussel · Meymac</span></div>
+          <p style="font-size:7.2pt;margin:2mm 0 0">À revérifier : agence annoncée mais non confirmée ouverte au relevé.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="filet"></div>
+
+    <div class="duo" style="grid-template-columns:1fr 1fr;gap:8mm">
+      <div>
+        <h4>Volume par canal — relevé du 26.07.2026</h4>
+        <table style="font-size:7.8pt">
+          <tr><th>Canal</th><th style="width:20mm">Annonces</th><th>Ce qu'on y trouve</th></tr>
+          <tr><td><a class="lien" href="https://www.leboncoin.fr/cl/locations/cp_bort-les-orgues_19110" target="_blank">Le Bon Coin</a></td><td class="num">≈ 10</td><td>Le plus actif. Pros et particuliers mêlés, dépôts quotidiens.</td></tr>
+          <tr><td><a class="lien" href="https://www.seloger.com/immobilier/tout/immo-bort-les-orgues-19/" target="_blank">SeLoger</a></td><td class="num">26 (dont 15 ventes)</td><td>Mandats d'agence. Peu de location.</td></tr>
+          <tr><td><a class="lien" href="https://www.logic-immo.com/recherche-immo/location/immobilier/nouvelle-aquitaine/bort-les-orgues-19110/ad08fr6744" target="_blank">Logic-Immo</a></td><td class="num">2 en location</td><td>Exclusivités Ashley Immobilier.</td></tr>
+          <tr><td><a class="lien" href="https://www.fnaim.fr/immobilier/29274/46-bort-les-orgues-19110.htm" target="_blank">FNAIM</a></td><td class="num">22</td><td>Une seule agence adhérente sur la commune.</td></tr>
+          <tr><td><a class="lien" href="https://www.pap.fr/vendeur/prix-m2/bort-les-orgues-19110-g13528" target="_blank">PAP</a></td><td class="num vide">faible</td><td>Peu de particuliers. Utile surtout pour l'estimation.</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="encadre foret">
+          <h4>La méthode qui fonctionne ici</h4>
+          <p style="font-size:8.4pt"><b>1.</b> Alerte quotidienne Le Bon Coin — c'est là que tout passe en premier.</p>
+          <p style="font-size:8.4pt"><b>2.</b> Appel direct aux trois agences du centre. Sur un marché de cette taille, une part des biens ne sort jamais en ligne.</p>
+          <p style="font-size:8.4pt"><b>3.</b> Mairie et bouche-à-oreille. Avec 610 logements vacants, des propriétaires ne publient nulle part.</p>
+          <p style="font-size:8.4pt"><b>4.</b> Élargir à Ydes (7,5 km) et Ussel (22 km) si le poste est de ce côté.</p>
+        </div>
+        <div class="encadre bistre">
+          <h4>Trois vérifications non négociables</h4>
+          <p style="font-size:8.4pt"><b>Factures d'énergie —</b> les trois dernières, pas la provision affichée.<br><b>État des risques —</b> à l'adresse, sur GéoRisques.<br><b>Débit internet —</b> testé à l'adresse exacte, pas à la commune.</p>
+          <div style="margin-top:1.5mm"><a class="bouton creux" href="https://www.georisques.gouv.fr" target="_blank">GéoRisques</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filet"></div>
+    <h4>Sources de ce chapitre</h4>
+    <p style="font-size:7.2pt;color:var(--lichen);max-width:none">INSEE — recensement, populations légales 2023 (publiées décembre 2025). MeilleursAgents, estimation au 1<sup>er</sup> janvier 2026. Orpi / PriceHubble, avril 2026. PAP, mai 2025. Journal du Net, 2026. SeLoger, prix de la location septembre 2025 et annonces juin 2026. Le Bon Coin, Logic-Immo, FNAIM, Pappers Immobilier (base DVF), PagesJaunes, ville-data.com. Ensemble des relevés d'annonces effectués le 26 juillet 2026 — <b>les annonces citées sont périssables et doivent être revérifiées avant tout contact.</b></p>
+  </div>
+  <div class="pied">
+    <div>Bort-les-Orgues · Immobilier · Vérifié le 26.07.2026</div>
+    <div class="nav"><a href="#p-bort-achat">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-bort-travail">→</a></div>
+    <div>40</div>
+  </div>
+</section>
+
+<!-- ============ BORT — TRAVAIL & BASSIN D'EMPLOI ============ -->
+<section class="page" id="p-bort-travail">
+  <div class="onglet"><span>Bort · Travail</span></div>
+  <div class="entete"><div>Bort-les-Orgues · <b>Travail</b></div><div><b>Bassin d'emploi</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">Travail — 1 / 2</span>
+    <h2>Un bassin restreint, porté par l'énergie et la santé</h2>
+    <p style="max-width:none;font-size:8.6pt;margin-bottom:4mm">Bort-les-Orgues n'a pas de zone d'emploi propre : la commune est rattachée à la <b>zone d'emploi d'Ussel</b> (22 km), l'une des plus dynamiques de France. Sur la commune même, l'emploi salarié tient sur deux piliers — l'énergie et le sanitaire — complétés par l'administration, l'enseignement et le commerce de proximité.</p>
+
+    <div class="duo" style="grid-template-columns:1fr 1fr;gap:6mm">
+      <div>
+        <h4>Vue d'ensemble</h4>
+        <table>
+          <tr><td>Zone d'emploi de rattachement</td><td class="num">Ussel</td></tr>
+          <tr><td>Taux de chômage (T2 2025)</td><td class="num">4,6 %</td></tr>
+          <tr><td>Rang national (/ 321 zones)</td><td class="num">8<sup>e</sup> plus bas</td></tr>
+          <tr><td>Moyenne nationale (référence)</td><td class="num">7,3 %</td></tr>
+          <tr><td>Secteurs dominants sur la commune</td><td class="num vide">énergie · santé · public</td></tr>
+          <tr><td>Population active de Bort</td><td class="num vide">— <span style="font-size:6.6pt">(non trouvé à l'échelle communale)</span></td></tr>
+        </table>
+        <div class="encadre foret" style="margin-top:3mm">
+          <h4>Ce que cela signifie</h4>
+          <p style="font-size:8.2pt">Un taux de chômage bas dans la zone d'Ussel ne garantit pas des offres nombreuses sur la commune elle-même : le bassin est surtout tiré par l'agroalimentaire et l'industrie d'Ussel, à 20 minutes de route. Beaucoup d'actifs de Bort travaillent hors commune.</p>
+        </div>
+      </div>
+      <div>
+        <div class="fiche">
+          <div class="fiche-tete"><span class="t">EDF — Barrage &amp; usine hydroélectrique</span><span class="r">Sur place</span></div>
+          <div class="fiche-corps">
+            <div class="ligne"><span class="k">Secteur</span><span class="v">Production d'électricité hydraulique</span></div>
+            <div class="ligne"><span class="k">Adresse</span><span class="v">Barrage de Bort-les-Orgues, 19110</span></div>
+            <div class="ligne"><span class="k">Effectif du site</span><span class="v vide">— (non public)</span></div>
+            <div class="ligne"><span class="k">Métiers</span><span class="v">Exploitation, maintenance électromécanique, sûreté hydraulique, médiation (Espace EDF Odyssélec)</span></div>
+            <div class="ligne"><span class="k">Trajet</span><span class="v">Dans la commune</span></div>
+            <div style="margin-top:2mm"><a class="bouton" href="https://www.edf.fr/hydraulique-dordogne/les-espaces-de-visite-d-edf/espace-edf-bort-les-orgues" target="_blank">Espace EDF</a><a class="bouton creux" href="https://www.edf.fr/recrutement" target="_blank">EDF recrute</a></div>
+            <p style="font-size:7.4pt;margin:2mm 0 0">Premier employeur industriel de la commune. Le barrage, l'un des plus grands ouvrages hydroélectriques de France, produit annuellement l'équivalent de la consommation de Limoges.</p>
+          </div>
+        </div>
+        <p style="font-size:7.4pt;color:var(--lichen);margin-top:2mm">Effectifs non communiqués publiquement par EDF pour ce site précis — à vérifier directement auprès de l'exploitant.</p>
+      </div>
+    </div>
+
+    <div class="filet"></div>
+
+    <div class="duo" style="grid-template-columns:1fr 1fr;gap:6mm">
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">Centre Hospitalier de Bort-les-Orgues</span><span class="r">Sur place</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Secteur</span><span class="v">Sanitaire, EHPAD, USLD, SMR</span></div>
+          <div class="ligne"><span class="k">Adresse</span><span class="v">190 rue Gustave Parré, CS 30099, 19110</span></div>
+          <div class="ligne"><span class="k">Courriel</span><span class="v">secretariat.direction@ch-bort.fr</span></div>
+          <div class="ligne"><span class="k">Métiers recherchés (relevé 26.07.2026)</span><span class="v">Infirmier(e)s, aides-soignant(e)s, psychologue, médecin coordonnateur EHPAD, médecin généraliste/gériatre</span></div>
+          <div style="margin-top:2mm"><a class="bouton" href="https://www.ch-bort.fr/index.php/recrutement" target="_blank">Recrutement</a><a class="bouton creux" href="https://www.ch-bort.fr" target="_blank">Site</a></div>
+          <p style="font-size:7.4pt;margin:2mm 0 0">Deuxième pilier de l'emploi local. Direction commune avec d'autres hôpitaux de Corrèze ; plusieurs postes médicaux et soignants ouverts au relevé.</p>
+        </div>
+      </div>
+      <div class="fiche">
+        <div class="fiche-tete"><span class="t">Administration, enseignement &amp; commerce</span><span class="r">Sur place</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Mairie &amp; Haute-Corrèze Communauté</span><span class="v">Services administratifs, techniques, périscolaires</span></div>
+          <div class="ligne"><span class="k">Lycée professionnel Bort-Artense</span><span class="v">Enseignement, filières professionnelles</span></div>
+          <div class="ligne"><span class="k">Commerces &amp; artisanat</span><span class="v vide">TPE/PME — effectifs non consolidés</span></div>
+          <p style="font-size:7.4pt;margin:2mm 0 0">Emploi public et de proximité stable mais non extensible : peu de créations de poste hors remplacement.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="filet"></div>
+    <h4>Sources de ce chapitre</h4>
+    <p style="font-size:7.2pt;color:var(--lichen);max-width:none">DREETS Auvergne-Rhône-Alpes / INSEE, taux de chômage localisé par zone d'emploi, T2 2025. EDF.fr, Espace EDF Bort-les-Orgues. Site officiel et espace recrutement du Centre Hospitalier de Bort-les-Orgues (ch-bort.fr), relevé du 26 juillet 2026. Choisirleservicepublic.gouv.fr, HelloWork. <b>Les offres d'emploi citées sont périssables et doivent être revérifiées avant toute candidature.</b></p>
+  </div>
+  <div class="pied">
+    <div>Bort-les-Orgues · Travail · Vérifié le 26.07.2026</div>
+    <div class="nav"><a href="#p-bort-agences">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-bort-securite">→</a></div>
+    <div>41</div>
+  </div>
+</section>
+
+<!-- ============ BORT — SÉCURITÉ PRIVÉE ============ -->
+<section class="page" id="p-bort-securite">
+  <div class="onglet"><span>Bort · Sécurité privée</span></div>
+  <div class="entete"><div>Bort-les-Orgues · <b>Travail</b></div><div><b>Sécurité privée</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">Travail — 2 / 2</span>
+    <h2>Peu de sites sur place, une offre concentrée à Ussel et Tulle</h2>
+    <p style="max-width:none;font-size:8.6pt;margin-bottom:4mm">Bort-les-Orgues compte deux sites relevant potentiellement de la surveillance humaine — le barrage EDF et le centre hospitalier — mais aucune société de sécurité privée n'est implantée sur la commune. L'offre professionnelle la plus proche se trouve à Ussel (22 km) et à Tulle (≈ 62 km).</p>
+
+    <table style="font-size:7.8pt">
+      <tr><th style="width:32mm">Famille de site</th><th style="width:46mm">Établissement</th><th style="width:16mm">Distance</th><th>Accès recrutement</th></tr>
+      <tr><td><b>Site énergie / EDF</b></td><td>Barrage &amp; usine hydroélectrique de Bort-les-Orgues</td><td class="num">0 km</td><td>edf.fr/recrutement — sûreté et gardiennage généralement sous-traités à des groupes nationaux (non confirmé pour ce site)</td></tr>
+      <tr><td><b>Hôpital / EHPAD</b></td><td>Centre Hospitalier de Bort-les-Orgues</td><td class="num">0 km</td><td>ch-bort.fr/recrutement — pas de poste de sécurité identifié au relevé</td></tr>
+      <tr><td><b>Site logistique</b></td><td class="vide">Aucun site relevé dans la commune</td><td class="num vide">—</td><td class="vide">—</td></tr>
+      <tr><td><b>Site sensible / public</b></td><td>Sous-préfecture d'Ussel</td><td class="num">22 km</td><td class="vide">— (hors commune)</td></tr>
+      <tr><td><b>Événementiel / saison</b></td><td>Fêtes locales, base de loisirs du lac</td><td class="num">0 km</td><td class="vide">Vacataire, saisonnier — non consolidé</td></tr>
+    </table>
+
+    <div class="filet"></div>
+    <h4>Sociétés de sécurité les plus proches</h4>
+    <div class="trio">
+      <div class="fiche"><div class="fiche-tete"><span class="t">Safe Zone Sécurité</span><span class="r">Ussel · 22 km</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Agence</span><span class="v">Ussel</span></div>
+          <div class="ligne"><span class="k">Marchés</span><span class="v">Gardiennage, sécurité incendie, agents cynophiles</span></div>
+          <div style="margin-top:2mm"><a class="bouton creux" href="https://www.safe-zone.fr/agence-de-securite-correze/agence-de-securite-ussel/" target="_blank">Site</a></div>
+        </div></div>
+      <div class="fiche"><div class="fiche-tete"><span class="t">SIVA Sécurité</span><span class="r">Ussel · 22 km</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Agence</span><span class="v">Ussel</span></div>
+          <div class="ligne"><span class="k">Marchés</span><span class="v">Surveillance, gardiennage résidentiel &amp; industriel, convoyage</span></div>
+          <div style="margin-top:2mm"><a class="bouton creux" href="https://www.pagesjaunes.fr/annuaire/ussel-19/entreprises-de-surveillance-gardiennage-protection" target="_blank">Coordonnées</a></div>
+        </div></div>
+      <div class="fiche"><div class="fiche-tete"><span class="t">CBSI-Sécurité / ARAK / Atlantis</span><span class="r">Tulle · ≈ 62 km</span></div>
+        <div class="fiche-corps">
+          <div class="ligne"><span class="k">Agence</span><span class="v">Tulle</span></div>
+          <div class="ligne"><span class="k">Marchés</span><span class="v">SSIAP, gardiennage, événementiel, cynophile</span></div>
+          <p style="font-size:7.2pt;margin:2mm 0 0">Trop éloigné pour un poste au quotidien sans véhicule ; pertinent pour du vacataire événementiel.</p>
+        </div></div>
+    </div>
+
+    <div class="encadre foret"><h4>Lecture du tableau</h4><p style="font-size:8.2pt">Aucune société de sécurité privée n'a de siège ou d'agence à Bort-les-Orgues au relevé. Pour un poste stable, Ussel (22 km, ≈ 25 min) est le bassin réaliste ; Tulle n'est pertinent que pour des missions ponctuelles. La sous-traitance de la sûreté du barrage EDF n'a pas pu être confirmée publiquement — à vérifier par contact direct.</p></div>
+
+    <div class="filet"></div>
+    <h4>Sources de ce chapitre</h4>
+    <p style="font-size:7.2pt;color:var(--lichen);max-width:none">Safe-zone.fr, pagesjaunes.fr (annuaire Ussel), atlantis-securite.fr, arak-securite.com (annuaire Tulle), edf.fr, ch-bort.fr. Relevé du 26 juillet 2026. <b>Coordonnées et statuts d'implantation à revérifier avant contact, ces informations pouvant évoluer.</b></p>
+  </div>
+  <div class="pied">
+    <div>Bort-les-Orgues · Sécurité privée · Vérifié le 26.07.2026</div>
+    <div class="nav"><a href="#p-bort-travail">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-index">→</a></div>
+    <div>42</div>
+  </div>
+</section>
+
+<section class="page" id="p-index">
+  <div class="onglet"><span>Index</span></div>
+  <div class="entete"><div>Projet Horizon Premium</div><div><b>État de production</b></div></div>
+  <div class="corps">
+    <span class="eyebrow">Index — suivi éditorial</span>
+    <h2>État d'avancement</h2>
+    <p style="max-width:none;font-size:8.8pt;margin-bottom:4mm">Ce tableau suit la production des cinquante fiches. Il est mis à jour à chaque édition et permet de savoir, avant lecture, quelles données sont disponibles.</p>
+
+    <table style="font-size:8pt">
+      <tr><th style="width:22mm">Phase</th><th style="width:56mm">Contenu</th><th style="width:22mm">État</th><th>Détail</th></tr>
+      <tr><td class="num">Phase 1</td><td>Structure, identité graphique, ressources, méthode, système Horizon, modèles de pages</td><td><span class="tag plein">Livré</span></td><td>Édition 1.0</td></tr>
+      <tr><td class="num">Phase 2.1</td><td>Bort-les-Orgues — Logement &amp; marché immobilier</td><td><span class="tag plein">Livré</span></td><td>6 pages · 11 biens relevés</td></tr>
+      <tr><td class="num">Phase 2.2</td><td>Bort-les-Orgues — Travail &amp; sécurité privée</td><td><span class="tag plein">Livré</span></td><td>2 pages · zone d'emploi d'Ussel · EDF, Centre Hospitalier, sociétés de sécurité recensées</td></tr>
+      <tr><td class="num">Phase 2.3</td><td>Bort-les-Orgues — Nature, randonnées, activités, galerie</td><td><span class="tag att">À produire</span></td><td>—</td></tr>
+      <tr><td class="num">Phase 2.4</td><td>Bort-les-Orgues — Vie quotidienne, santé, commerces, services</td><td><span class="tag att">À produire</span></td><td>—</td></tr>
+      <tr><td class="num">Phase 2.5</td><td>Bort-les-Orgues — Présentation, budget, climat, analyse, conclusion</td><td><span class="tag att">À produire</span></td><td>—</td></tr>
+      <tr><td class="num">Phase 3</td><td>Industrialisation — gabarit reproductible pour les 49 territoires restants</td><td><span class="tag att">À produire</span></td><td>—</td></tr>
+    </table>
+
+    <div class="filet"></div>
+    <div class="duo">
+      <div>
+        <h4>Règle de non-régression</h4>
+        <p style="font-size:8.6pt">Une phase validée n'est jamais modifiée. Toute évolution de la charte, du barème ou de la structure donne lieu à une nouvelle édition numérotée, et les fiches déjà produites sont mises à niveau, jamais réécrites partiellement.</p>
+        <h4 style="margin-top:4mm">Traçabilité</h4>
+        <p style="font-size:8.6pt">Chaque fiche porte en pied de page sa date de vérification. Une donnée de plus de douze mois est signalée comme telle dans l'édition suivante.</p>
+      </div>
+      <div class="encadre foret">
+        <h4>Ce qui reste identique d'un territoire à l'autre</h4>
+        <p style="font-size:8.4pt">Palette · typographies · onglets latéraux · en-têtes et pieds de page · ordre des neuf sections · structure des tableaux · gabarits de fiches bien, employeur, agence, itinéraire · barème Horizon · échelle de lecture · conventions de source.</p>
+        <p style="font-size:8.4pt">Seuls changent : le contenu, les photographies, les cartes et les notes.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pied">
+    <div>Projet Horizon Premium · v1.0 · Juillet 2026</div>
+    <div class="nav"><a href="#p-bort-securite">←</a><a href="#p-sommaire">🏠 Sommaire</a><a href="#p-ch1">📑 Ressources</a><a href="#p-couverture">→</a></div>
+    <div>43</div>
+  </div>
+</section>
+</body>
+</html>    
